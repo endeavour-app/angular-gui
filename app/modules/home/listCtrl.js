@@ -26,12 +26,18 @@
 		var $list = this;
 
     var list = {
+      model: {ParentID: null, Title: ''},
       lists: [],
       items: [],
     };
 
+    $list.model = list.model;
     $list.lists = list.lists;
 		$list.items = list.items;
+
+    $list.getParentId = function () {
+      return list.model.ParentID;
+    };
 
     loadList();
 
@@ -40,6 +46,13 @@
     function loadList () {
 
       var ListID = $stateParams.id;
+
+  		listService.fetchListById(ListID)
+  			.then(function (newListModel) {
+          Object.assign(list.model, newListModel);
+  				$timeout(function () {
+  				});
+  			});
 
   		listService.fetchItemsInList(ListID)
   			.then(function (items) {

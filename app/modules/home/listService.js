@@ -18,6 +18,17 @@
 
 		return {
 
+      fetchListById: function fetchListById (ListID) {
+				return new Promise((resolve, reject) => {
+  				backendService.getListById({ ID: ListID })
+  					.then(function (res) {
+              let list = res.data;
+              resolve(list || {});
+  					})
+  					.catch(reject);
+        });
+      },
+
       fetchItemsInList: function fetchItemsInList (ListID) {
 				return new Promise((resolve, reject) => {
   				backendService.getListItemsByListId({ ID: ListID })

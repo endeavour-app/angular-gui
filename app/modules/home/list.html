@@ -1,15 +1,23 @@
+<div style="padding: 24px;background: #1976D2;color: rgba(255,255,255,0.7);">
+  <span class="md-display-1">{{ $list.model.Title }}</span>
+</div>
 <div class="md-padding"
   layout="row"
   flex>
 
-  <div flex="20"
-    style="margin: 8px;">
+  <div style="margin: 8px;width: 260px;">
     <div layout="column">
-      <span class="md-body-2">
-        Lists
-      </span>
       <md-list>
-        <md-subheader>Lists</md-subheader>
+        <!-- <md-subheader>Lists</md-subheader> -->
+        <md-list-item ui-sref-active="active"
+          ui-sref="app.home.list({ id: $list.getParentId() })">
+          <div class="inset">
+            <md-icon class="material-icons">
+              folder
+            </md-icon>
+          </div>
+          <p>..</p>
+        </md-list-item>
         <md-list-item ui-sref-active="active"
           ui-sref="app.home.list({ id: item.ID })"
           ng-repeat="item in $list.lists">
@@ -27,13 +35,35 @@
   <div class=""
     style="margin: 8px;"
     flex>
-    <md-content md-whiteframe="1dp"
+    <div md-whiteframe="1dp"
       layout-fill>
-      <div layout="column">
-        <span class="md-body-2">
-          Items
-        </span>
-        <ul class="md-body-1"
+      <div layout="row"
+        layout-fill>
+        <!-- <div>
+          <span class="md-body-2">
+            Items
+          </span>
+        </div> -->
+        <md-content flex="40">
+          <md-list>
+            <md-list-item
+              style="border-bottom: 1px solid rgba(0,0,0,0.12);"
+              ng-repeat="item in $list.items">
+              <div class="inset">
+                <md-checkbox style="margin: 0px;" ng-model="item.Completed">
+              </div>
+              <p>{{ item.Summary }}</p>
+              <md-icon class="material-icons manage-item">
+                more_vert
+              </md-icon>
+            </md-list-item>
+          </md-list>
+        </md-content>
+        <div style="background: #eee;border-left: 1px solid rgba(0,0,0,0.12);padding: 24px;"
+          flex>
+          Meow
+        </div>
+        <!-- <ul class="md-body-1"
           style="padding: 0; margin: 0;">
           <li class=""
             style="padding: 8px 8px 8px 16px;"
@@ -44,9 +74,9 @@
             </md-icon>
             <span>{{ item.Summary }}</span>
           </li>
-        </ul>
+        </ul> -->
       </div>
-    </md-content>
+    </div>
   </div>
 
 </div>

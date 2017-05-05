@@ -71,7 +71,7 @@
   ng-controller="LayoutCtrl as layout"
   layout-fill
   ng-cloak>
-  <md-toolbar class="md-whiteframe-1dp">
+  <md-toolbar>
     <div class="md-toolbar-tools">
 
       <md-button class="md-icon-button"
@@ -129,7 +129,9 @@
     layout="column"
     md-scroll-y
     flex>
-    <div ui-view></div>
+    <div layout="column"
+      ui-view>
+    </div>
   </md-content>
 
 </div>

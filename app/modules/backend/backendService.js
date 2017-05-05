@@ -65,7 +65,7 @@
 
 			// List
 			getRootLists: rest(GET, '/lists'),
-			getListById: [GET, '/lists/:ID'],
+			getListById: function (attrs) { return rest(GET, '/lists/:ID')(attrs); },
 			deleteListById: [DELETE, '/lists/:ID'],
 			getListItemsByListId: function (attrs) { return rest(GET, '/lists/:ID/items')(attrs); },
 			getListsByParentId: function (attrs) { return rest(GET, '/lists/:ID/lists')(attrs); },
