@@ -41,7 +41,8 @@
 			},
 
 			clearSession: function () {
-				useSession(null, null);
+				_d.UserID = null;
+				_d.SessionKey = null;
 			},
 
 			useSession: function (uid, key) {
@@ -51,7 +52,7 @@
 
 			// Login
 			login: rest(POST, '/login'), // backendService.login(attrs)
-			logout: [POST, '/logout'],
+			logout: rest(POST, '/logout'),
 
 			// Sessions
 			getSessionById: rest(GET, '/sessions/:ID'),

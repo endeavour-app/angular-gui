@@ -10,6 +10,7 @@
 
 angular.module('login')
 	.config(['$stateProvider', function ($stateProvider) {
+
 		$stateProvider
 
 			.state('app.anon.login', {

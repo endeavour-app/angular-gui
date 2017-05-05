@@ -22,6 +22,10 @@ angular.module('ang-modular')
 			.state('app.home.dashboard', {
 				url:'/dashboard',
 				templateUrl: 'app/modules/home/dashboard.html'
+			})
+			.state('app.home.list', {
+				url:'/list/:id',
+				templateUrl: 'app/modules/home/dashboard.html'
 			});
 
 	}]);

@@ -28,6 +28,18 @@
 				return backendService.useSession(id, token);
 			},
 
+			logout: function endSession () {
+				return backendService.logout()
+					.then(function () {
+						backendService.clearSession();
+						window.location = '/#!/login';
+					})
+					.catch(function () {
+						backendService.clearSession();
+						window.location = '/#!/login';
+					});
+			},
+
 			attemptLogin: function attemptLogin (username, password) {
 				return backendService.login({
 					EmailAddress: username,

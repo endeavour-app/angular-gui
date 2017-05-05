@@ -28,8 +28,8 @@
 		$login.version = "1.0.0";
 
 		$login.credentials = {
-			username: '',
-			password: '',
+			username: 'kounterfeitreality@gmail.com',
+			password: '$kazahawk1097',
 		};
 
 		$login.submit = function () {

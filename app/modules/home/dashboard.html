@@ -1,4 +1,42 @@
-<div class="md-padding" flex layout-sm="column">
+<div class="md-padding"
+  layout="row"
+  flex>
+
+  <div flex="20"
+    style="margin: 8px;">
+    <div layout="column">
+      <span class="md-body-2">
+        Lists
+      </span>
+      <ul class="md-body-1"
+        style="padding: 0; margin: 0;">
+        <li class=""
+          style="padding: 8px 8px 8px 16px;"
+          ng-repeat="item in $home.lists">
+          <md-icon class="material-icons"
+            style="margin-right: 8px">
+            folder
+          </md-icon>
+          <span>{{ item.Title }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class=""
+    style="margin: 8px;"
+    flex>
+    <md-content md-whiteframe="1dp"
+      layout-fill>
+      <div layout="column">
+        Meow
+      </div>
+    </md-content>
+  </div>
+
+</div>
+
+<!--<div class="md-padding" flex layout-sm="column">
     <md-card class="text-center">
         <md-card-content>
             <h1>{{ $home.title }}</h1>
@@ -9,11 +47,6 @@
             <p><a href="http://www.github.com/newaeonweb/generator-angm" class="btn btn-primary" role="button">Learn more »</a></p>
             <md-divider class="margin-top-20"></md-divider>
             <h1 class="margin-top-50">Features</h1>
-            <ul>
-                <li class=" text-center" ng-repeat="item in $home.lists">
-                    <p><ng-md-icon icon="check"></ng-md-icon> {{item.Title}}</p>
-                </li>
-            </ul>
         </md-card-content>
     </md-card>
-</div>
+</div>-->
