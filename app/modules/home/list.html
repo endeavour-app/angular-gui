@@ -8,18 +8,19 @@
       <span class="md-body-2">
         Lists
       </span>
-      <ul class="md-body-1"
-        style="padding: 0; margin: 0;">
-        <li class=""
-          style="padding: 8px 8px 8px 16px;"
+      <md-list>
+        <md-subheader>Lists</md-subheader>
+        <md-list-item ui-sref-active="active"
+          ui-sref="app.home.list({ id: item.ID })"
           ng-repeat="item in $list.lists">
-          <md-icon class="material-icons"
-            style="margin-right: 8px">
-            folder
-          </md-icon>
-          <span>{{ item.Title }}</span>
-        </li>
-      </ul>
+          <div class="inset">
+            <md-icon class="material-icons">
+              folder
+            </md-icon>
+          </div>
+          <p>{{ item.Title }}</p>
+        </md-list-item>
+      </md-list>
     </div>
   </div>
 
