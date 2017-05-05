@@ -8,7 +8,7 @@
 	* Route of the app
 	*/
 
-angular.module('ang-modular')
+angular.module('home')
 	.config(['$stateProvider', function ($stateProvider) {
 		$stateProvider
 
@@ -17,15 +17,17 @@ angular.module('ang-modular')
 				abstract: true,
 				templateUrl: 'app/modules/home/home.html',
 				controller: 'HomeCtrl',
-				controllerAs: '$home'
+				controllerAs: '$home',
 			})
 			.state('app.home.dashboard', {
 				url:'/dashboard',
-				templateUrl: 'app/modules/home/dashboard.html'
+				templateUrl: 'app/modules/home/dashboard.html',
 			})
 			.state('app.home.list', {
 				url:'/list/:id',
-				templateUrl: 'app/modules/home/dashboard.html'
+				templateUrl: 'app/modules/home/list.html',
+				controller: 'ListCtrl',
+				controllerAs: '$list',
 			});
 
 	}]);

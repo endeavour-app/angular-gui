@@ -9,12 +9,12 @@
 	* Service of the app
 	*/
 
-	angular.module('ang-modular')
+	angular.module('home')
 		.factory('homeService', homeService);
 
-	homeService.$inject = ['$http', 'backendService'];
+	homeService.$inject = ['backendService'];
 
-	function homeService($http, backendService) {
+	function homeService(backendService) {
 
 		var topLevelLists = [];
 

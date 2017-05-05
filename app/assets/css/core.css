@@ -3,3 +3,7 @@ body, html {
   font-size: 14.4px;
   font-family: "Roboto", sans-serif;
 }
+
+md-sidenav md-list-item._md-button-wrap.active {
+    background-color: #eaeaea;
+}

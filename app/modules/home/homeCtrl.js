@@ -10,7 +10,7 @@
 	*/
 
 	angular
-		.module('ang-modular')
+		.module('home')
 		.controller('HomeCtrl', Home);
 
 	Home.$inject = ['homeService', '$timeout'];

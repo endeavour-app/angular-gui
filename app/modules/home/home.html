@@ -39,7 +39,8 @@
       <md-divider></md-divider>
 
       <md-subheader>Lists</md-subheader>
-      <md-list-item ui-sref="app.home.list({ id: item.ID })"
+      <md-list-item ui-sref-active="active"
+        ui-sref="app.home.list({ id: item.ID })"
         ng-repeat="item in $home.lists">
         <div class="inset">
           <md-icon class="material-icons">

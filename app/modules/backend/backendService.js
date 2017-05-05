@@ -67,8 +67,8 @@
 			getRootLists: rest(GET, '/lists'),
 			getListById: [GET, '/lists/:ID'],
 			deleteListById: [DELETE, '/lists/:ID'],
-			getListItemsByListId: [GET, '/lists/:ID/items'],
-			getListsByParentId: [GET, '/lists/:ID/lists'],
+			getListItemsByListId: rest(GET, '/lists/:ID/items'),
+			getListsByParentId: rest(GET, '/lists/:ID/lists'),
 			postList: [POST, '/lists'],
 
 			// Users
@@ -96,7 +96,7 @@
 			return function (attrs) {
 				return new Promise((resolve, reject) => {
 
-					if (uri.match(/\:ID/)) {
+					if (uri.match(/.*\:ID.*/)) {
 						uri = uri.replace(':ID', attrs.ID);
 					}
 
