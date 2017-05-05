@@ -5,7 +5,7 @@ body, html {
 }
 
 md-sidenav md-list-item._md-button-wrap.active {
-    background-color: #eaeaea;
+    background-color: rgba(0,0,0,0.12);
 }
 
 md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {

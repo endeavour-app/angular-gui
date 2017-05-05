@@ -12,8 +12,36 @@
 
 	angular
 		.module('ang-modular')
+		.config(configureThemes)
 		.config(configure)
 		.run(runBlock);
+
+	configureThemes.$inject = ['$mdThemingProvider'];
+	function configureThemes (  $mdThemingProvider) {
+
+		// var neonRedMap = $mdThemingProvider.extendPalette('red', {
+	  //   '500': '#ff0000',
+	  //   'contrastDefaultColor': 'dark'
+	  // });
+		//
+	  // // Register the new color palette map with the name <code>neonRed</code>
+	  // $mdThemingProvider.definePalette('neonRed', neonRedMap);
+		//
+	  // // Use that theme for the primary intentions
+	  // $mdThemingProvider.theme('default')
+	  //   .primaryPalette('neonRed');
+
+		var sidebarBlueGreyMap = $mdThemingProvider.extendPalette('blue-grey', {
+			// 'contrastDefaultColor': 'dark',
+		});
+
+		$mdThemingProvider.definePalette('sidebarBlueGrey', sidebarBlueGreyMap);
+
+	  $mdThemingProvider.theme('sidenavTheme')
+	    .primaryPalette('blue-grey')
+			.dark();
+
+	}
 
 	configure.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider'];
 

@@ -1,25 +1,31 @@
 <md-sidenav class="md-sidenav-left md-whiteframe-z2"
   layout="column"
   md-component-id="left"
-  md-is-locked-open="$mdMedia('gt-md')">
+  md-is-locked-open="$mdMedia('gt-md')"
+  md-theme="sidenavTheme"
+  style="color: rgba(255,255,255,0.7);">
 
   <div ng-controller="SidenavCtrl as vm"
     ng-cloak>
 
-    <md-toolbar class="md-tall md-hue-2">
+    <md-toolbar class="md-tall md-hue-2"
+      style="background: url(/app/assets/images/sweet.png);background-size: cover;height: 150px;max-height: 150px;position: relative;">
       <div class="md-toolbar-tools-bottom inset"
         layout="column">
         <div layout="row">
           <div style="margin-top: 10px;"
             flex="80">
-            <div>Endeavour2</div>
+            <div class="md-body-1"
+              style="text-shadow: 1px 0px 6px rgba(0,0,0,0.9);font-weight: 800;text-transform: uppercase;color: #40C4FF;background: rgba(0,0,0,0.7);position: absolute;bottom: 0;left: 0;right: 0;text-align: center;padding: 16px 8px;border-top: 1px solid rgba(255,255,255,0.24);">
+              Endeavour2
+            </div>
           </div>
         </div>
       </div>
     </md-toolbar>
 
     <md-list>
-      <md-list-item ui-sref="home.dashboard">
+      <md-list-item ui-sref="app.home.dashboard">
         <div class="inset">
           <md-icon class="material-icons">
             apps
@@ -27,7 +33,7 @@
         </div>
         <p>Dashboard</p>
       </md-list-item>
-      <md-list-item>
+      <md-list-item ui-sref="app.home.dashboard">
         <div class="inset">
           <md-icon class="material-icons">
             search
