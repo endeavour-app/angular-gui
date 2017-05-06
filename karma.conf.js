@@ -22,21 +22,25 @@ module.exports = function (config) {
 			'src/bower_components/angular-material/angular-material.js',
 			'src/bower_components/angular-messages/angular-messages.js',
 			'src/bower_components/angular-material-icons/angular-material-icons.js',
+
 			'app/app.js',
 
 			'app/modules/backend/backendModule.js',
 			'app/modules/backend/backendService.js',
-			'app/modules/backend/backend-test.js',
 
 			'app/modules/login/loginModule.js',
 
 			'app/modules/anon/anonModule.js',
 
 			'app/modules/home/homeModule.js',
-			// 'app/modules/home/homeCtrl.js',
-			// 'app/modules/home/homeRoute.js',
-			// 'app/modules/home/homeService.js',
-			// 'app/modules/home/home-test.js',
+			'app/modules/home/homeCtrl.js',
+			'app/modules/home/homeRoute.js',
+			'app/modules/home/homeService.js',
+			'app/modules/home/listCtrl.js',
+			'app/modules/home/listItemService.js',
+			'app/modules/home/listService.js',
+
+			'app/modules/**/*-test.js',
 
 		],
 

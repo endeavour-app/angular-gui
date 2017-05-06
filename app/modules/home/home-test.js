@@ -13,16 +13,21 @@
 		var controller = null, $scope = null, $location;
 
 		beforeEach(function () {
-			module('ang-modular');
+			module('home');
 		});
 
-		beforeEach(inject(function ($controller, $rootScope, _$location_) {
+		beforeEach(inject(function ($injector, $controller, $rootScope) {
+
+			// let $controller = $injector.get('$controller');
+			// let $rootScope = $injector.get('$rootScope');
+
 			$scope = $rootScope.$new();
-			$location = _$location_;
+			$location = $injector.get('$location');
 
 			controller = $controller('HomeCtrl', {
 				$scope: $scope
 			});
+
 		}));
 
 		it('Should HomeCtrl must be defined', function () {
