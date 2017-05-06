@@ -24,13 +24,24 @@
       <md-list>
         <!-- <md-subheader>Lists</md-subheader> -->
         <md-list-item ui-sref-active="active"
-          ui-sref="app.home.list({ id: $list.getParentId() })">
+          ui-sref="app.home.list({ id: $list.getParentId() })"
+          ng-if="$list.getParentId()">
           <div class="inset">
             <md-icon class="material-icons">
               folder
             </md-icon>
           </div>
           <p>..</p>
+        </md-list-item>
+        <md-list-item ui-sref-active="active"
+          ui-sref="app.home.dashboard"
+          ng-if="!$list.getParentId()">
+          <div class="inset">
+            <md-icon class="material-icons">
+              apps
+            </md-icon>
+          </div>
+          <p>Dashboard</p>
         </md-list-item>
         <md-list-item ui-sref-active="active"
           ui-sref="app.home.list({ id: item.ID })"

@@ -47,6 +47,27 @@
         return hasSessionData();
       }
 
+      getSession () {
+        return new Promise((resolve, reject) => {
+
+          if (!hasSessionData()) {
+            return reject(new Error('No session identified'));
+          }
+
+          if (hasSessionData() && _d.SessionKey === _d.Session.Key) {
+            return resolve(Object.assign({}, _d.Session));
+          }
+
+          this
+            .refreshSession()
+            .then(() => {
+              resolve(Object.assign({}, _d.Session));
+            })
+            .catch(reject)
+
+        });
+      }
+
       refreshSession () {
         return new Promise((resolve, reject) => {
 

@@ -13,7 +13,7 @@
     .module('home')
     .controller('ListCtrl', List);
 
-  List.$inject = ['listService', '$state', '$stateParams', '$timeout'];
+  List.$inject = ['listService', '$state', '$stateParams', '$timeout', '_list', '_lists', '_items'];
 
   /**
    * recommend
@@ -21,14 +21,14 @@
    * and bindable members up top.
    */
 
-  function List(listService, $state, $stateParams, $timeout) {
+  function List(listService, $state, $stateParams, $timeout, _list, _lists, _items) {
     /*jshint validthis: true */
     var $list = this;
 
     var list = {
-      model: {ParentID: null, Title: ''},
-      lists: [],
-      items: [],
+      model: _list,
+      lists: _lists,
+      items: _items,
     };
 
     $list.model = list.model;

@@ -13,7 +13,7 @@
     .module('home')
     .controller('HomeCtrl', Home);
 
-  Home.$inject = ['homeService', '$timeout'];
+  Home.$inject = ['homeService', '$timeout', '_session'];
 
   /**
    * recommend
@@ -21,7 +21,7 @@
    * and bindable members up top.
    */
 
-  function Home(homeService, $timeout) {
+  function Home(homeService, $timeout, _session) {
     /*jshint validthis: true */
     var vm = this;
     vm.title = "Hello, ang-modular!";
