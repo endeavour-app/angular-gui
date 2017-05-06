@@ -1,188 +1,249 @@
 (function () {
-	'use strict';
+  'use strict';
 
-	/**
-	* @ngdoc function
-	* @name app.test:homeTest
-	* @description
-	* # homeTest
-	* Test of the app
-	*/
+  /**
+   * @ngdoc function
+   * @name app.test:homeTest
+   * @description
+   * # homeTest
+   * Test of the app
+   */
 
-	describe('backendService', function () {
-		var backendService = null, $httpBackend;
-		var loginRequestHandler, getListItemByIdRequestHandler;
+  describe('backendService', function () {
 
-		beforeEach(function () {
-			module('backend');
-		});
+    let backendService = null;
+    let $httpBackend;
+    let loginRequestHandler;
+    let getListItemByIdRequestHandler;
 
-		beforeEach(inject(function ($injector) {
+    beforeEach(function () {
+      module('backend');
+    });
 
-			backendService = $injector.get('backendService');
-			$httpBackend = $injector.get('$httpBackend');
+    beforeEach(inject(function ($injector) {
 
-			let loginResponse = {
-				ID: 123,
-				UserID: 456,
-			};
+      backendService = $injector.get('backendService');
+      $httpBackend = $injector.get('$httpBackend');
 
-			loginRequestHandler = $httpBackend
-				.when('POST', 'http://localhost:8888/login')
-      		.respond(loginResponse, {'Content-Type': 'application/json'});
+    }));
 
-			let getListItemResponse = function () {
-				return {
-					"ID":136,
-					"ListID":10,
-					"UserID":1,
-					"Summary":"make it add something when you double click",
-					"Created":{"date":"2014-03-17 01:45:08.000000","timezone_type":3,"timezone":"UTC"},
-					"Completed":null,
-					"Due":null,
-					"Deleted":false
-				};
-			};
+    afterEach(function() {
+      $httpBackend.verifyNoOutstandingExpectation();
+      $httpBackend.verifyNoOutstandingRequest();
+    });
 
-			getListItemByIdRequestHandler = $httpBackend
-				.when('GET', 'http://localhost:8888/listitems/123')
-      		.respond(getListItemResponse(), {'Content-Type': 'application/json'});
+    it('Should have no session set initially', function () {
+      expect(backendService.isSessionSet()).toBe(false);
+    });
 
-		}));
+    /**
+     * @name backend.function:login
+     * @description
+     * backendService.login(attrs)
+     *
+     * Attempt to authenticate via backend using credentials provided in
+     * `attrs` argument.
+     *
+     * ```javascript
+     * # Example login
+     * let credentials = {
+     *   EmailAddress: 'tester@localhost',
+     *   Password: 'mypassword1'
+     * };
+     *
+     * backendService
+     *   .login(credentials)
+     *   .then(function (res) => {
+     *     let session = res.data;
+     *   })
+     *   .catch(function (err) => {
+     *
+     *   });
+     * ```
+     *
+     * @param attrs object Authentication credentials
+     * @return Promise
+     */
+    describe('backendService.login(attrs)', function () {
 
-   	afterEach(function() {
-			$httpBackend.verifyNoOutstandingExpectation();
-			$httpBackend.verifyNoOutstandingRequest();
-   	});
+      let result;
 
-		it('Should have no session set initially', function () {
-			expect(backendService.isSessionSet()).toBe(false);
-		});
+      beforeEach(function () {
 
-		describe('backendService.login(attrs)', function () {
+        let sessionData = function () {
+          return {
+            "ID": 379,
+            "UserID": 138,
+            "Key": "3ce41b9926934cf7a70628f751dc87b8",
+            "Expiry": 31536000,
+            "Created": "2017-05-06T12:59:49+0000",
+            "Revoked": false,
+          };
+        };
 
-			let result;
+        loginRequestHandler = $httpBackend
+          .when('POST', 'http://localhost:8888/login')
+            .respond(sessionData(), {'Content-Type': 'application/json'});
 
-			beforeEach(function () {
+        $httpBackend.expectPOST('http://localhost:8888/login');
 
-				$httpBackend.expectPOST('http://localhost:8888/login');
+        result = backendService.login({
+          EmailAddress: 'test@localhost',
+          Password: 'mypassword1',
+        });
 
-				result = backendService.login({
-					EmailAddress: 'test@localhost',
-					Password: 'mypassword1',
-				});
+        $httpBackend.flush();
 
-				$httpBackend.flush();
+      });
 
-			});
+      it('Should return a promise', function () {
 
-			it('Should return a promise', function () {
+        expect(result).toEqual(jasmine.any(Promise));
 
-				expect(result).toEqual(jasmine.any(Promise));
+      });
 
-			});
+      it('Should issue the request to the correct remote endpoint', function (done) {
 
-			it('Should issue the request to the correct remote endpoint', function (done) {
+        result
+          .then(function (res) {
+            expect(res.config.url).toBe('http://localhost:8888/login');
+            done();
+          })
+          .catch(function (err) {
+            done(false);
+          });
 
-				result
-					.then(function (res) {
-						expect(res.config.url).toBe('http://localhost:8888/login');
-						done();
-					})
-					.catch(function (err) {
-						done(false);
-					});
+      });
 
-			});
+      it('Should issue the request using the correct HTTP method', function (done) {
 
-			it('Should issue the request using the correct HTTP method', function (done) {
+        result
+          .then(function (res) {
+            expect(res.config.method).toBe('POST');
+            done();
+          })
+          .catch(function (err) {
+            done(false);
+          });
 
-				result
-					.then(function (res) {
-						expect(res.config.method).toBe('POST');
-						done();
-					})
-					.catch(function (err) {
-						done(false);
-					});
+      });
 
-			});
+      it('Should send the correct data to the remote endpoint', function (done) {
 
-			it('Should send the correct data to the remote endpoint', function (done) {
+        result
+          .then(function (res) {
 
-				result
-					.then(function (res) {
+            let requestData = JSON.parse(res.config.data);
 
-						let requestData = JSON.parse(res.config.data);
+            expect(requestData).toEqual(jasmine.objectContaining({
+              EmailAddress: 'test@localhost',
+              Password: 'mypassword1',
+            }));
 
-						expect(requestData).toEqual(jasmine.objectContaining({
-							EmailAddress: 'test@localhost',
-							Password: 'mypassword1',
-						}));
+            done();
 
-						done();
+          })
+          .catch(function (err) {
+            done(false);
+          });
 
-					})
-					.catch(function (err) {
-						done(false);
-					});
+      });
 
-			});
+    });
 
-		});
+    /**
+     * @name backend.function:getListItemById
+     * @description
+     * backendService.getListItemById(attrs)
+     *
+     * Fetch a single ListItem identified by the ID property in `attrs`, from
+     * the backend.
+     *
+     * ```javascript
+     * # Example
+     * backendService
+     *   .getListItemById({ ID: 137 })
+     *   .then(function (res) => {
+     *     let listItem = res.data;
+     *   })
+     *   .catch(function (err) => {
+     *
+     *   });
+     * ```
+     *
+     * @param attrs object Authentication credentials
+     * @return Promise
+     */
+    describe('backendService.getListItemById(attrs)', function () {
 
-		describe('backendService.getListItemById(attrs)', function () {
+      let result;
+      let testID;
 
-			let result;
+      beforeEach(function () {
 
-			beforeEach(function () {
+        testID = 136;
 
-				$httpBackend.expectGET('http://localhost:8888/listitems/123');
+        let getListItemResponse = function () {
+          return {
+            "ID": testID,
+            "ListID": 10,
+            "UserID": 1,
+            "Summary": "make it add something when you double click",
+            "Created": {"date":"2014-03-17 01:45:08.000000","timezone_type":3,"timezone":"UTC"},
+            "Completed": null,
+            "Due": null,
+            "Deleted": false
+          };
+        };
 
-				result = backendService.getListItemById({
-					ID: 123,
-				});
+        getListItemByIdRequestHandler = $httpBackend
+          .when('GET', 'http://localhost:8888/listitems/' + testID)
+            .respond(getListItemResponse(), {'Content-Type': 'application/json'});
 
-				$httpBackend.flush();
+        $httpBackend.expectGET('http://localhost:8888/listitems/' + testID);
 
-			});
+        result = backendService.getListItemById({
+          ID: testID,
+        });
 
-			it('Should return a promise', function () {
+        $httpBackend.flush();
 
-				expect(result).toEqual(jasmine.any(Promise));
+      });
 
-			});
+      it('Should return a promise', function () {
 
-			it('Should request the correct remote resource', function (done) {
+        expect(result).toEqual(jasmine.any(Promise));
 
-				result
-					.then(function (res) {
-						expect(res.config.url).toBe('http://localhost:8888/listitems/123');
-						done();
-					})
-					.catch(function (err) {
-						done(false);
-					});
+      });
 
-			});
+      it('Should request the correct remote resource', function (done) {
 
-			it('Should issue the request using the correct HTTP method', function (done) {
+        result
+          .then(function (res) {
+            expect(res.config.url).toBe('http://localhost:8888/listitems/' + testID);
+            done();
+          })
+          .catch(function (err) {
+            done(false);
+          });
 
-				result
-					.then(function (res) {
-						expect(res.config.method).toBe('GET');
-						done();
-					})
-					.catch(function (err) {
-						done(false);
-					});
+      });
 
-			});
+      it('Should issue the request using the correct HTTP method', function (done) {
 
-		});
+        result
+          .then(function (res) {
+            expect(res.config.method).toBe('GET');
+            done();
+          })
+          .catch(function (err) {
+            done(false);
+          });
 
-	});
+      });
 
+    });
 
+  });
 
 })();

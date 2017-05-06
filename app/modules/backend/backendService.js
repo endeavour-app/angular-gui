@@ -1,164 +1,164 @@
 (function () {
-	'use strict';
+  'use strict';
 
-	/**
-	* @ngdoc function
-	* @name app.service:homeService
-	* @description
-	* # homeService
-	* Service of the app
-	*/
+  /**
+   * @ngdoc function
+   * @name app.service:homeService
+   * @description
+   * # homeService
+   * Service of the app
+   */
 
-	angular.module('backend')
-		.factory('backendService', backendService);
+  angular.module('backend')
+    .factory('backendService', backendService);
 
-	backendService.$inject = ['$http', '$resource'];
+  backendService.$inject = ['$http', '$resource'];
 
-	function backendService ($http, $resource) {
+  function backendService ($http, $resource) {
 
-		// const Session = $resource('/sessions/:sessionId', { sessionId: '@id' });
-		// const SingleList = $resource('/lists/:listId', { listId: '@id' });
-		// const ListItem = $resource('/listitems/:listitemId', { listitemId: '@id' });
-		// const ListItemDetails = $resource('/listitems/:listitemId/details', { listitemId: '@id' });
+    // const Session = $resource('/sessions/:sessionId', { sessionId: '@id' });
+    // const SingleList = $resource('/lists/:listId', { listId: '@id' });
+    // const ListItem = $resource('/listitems/:listitemId', { listitemId: '@id' });
+    // const ListItemDetails = $resource('/listitems/:listitemId/details', { listitemId: '@id' });
 
-		const GET = 'GET';
-		const PUT = 'PUT';
-		const POST = 'POST';
-		const PATCH = 'PATCH';
-		const DELETE = 'DELETE';
+    const GET = 'GET';
+    const PUT = 'PUT';
+    const POST = 'POST';
+    const PATCH = 'PATCH';
+    const DELETE = 'DELETE';
 
-		var _d = {
-			UserID: null,
-			SessionKey: null,
-		};
+    var _d = {
+      UserID: null,
+      SessionKey: null,
+    };
 
-		return {
+    return {
 
-			isSessionSet: function () {
-				return hasSessionData();
-			},
+      isSessionSet: function () {
+        return hasSessionData();
+      },
 
-			getSession: function () {
-				// Session.get({ id: 0 }, function (session) {
-				// 	console.log(session);
-				// });
-			},
+      getSession: function () {
+        // Session.get({ id: 0 }, function (session) {
+        //   console.log(session);
+        // });
+      },
 
-			clearSession: function () {
-				_d.UserID = null;
-				_d.SessionKey = null;
-			},
+      clearSession: function () {
+        _d.UserID = null;
+        _d.SessionKey = null;
+      },
 
-			useSession: function (uid, key) {
-				_d.UserID = uid;
-				_d.SessionKey = key;
-			},
+      useSession: function (uid, key) {
+        _d.UserID = uid;
+        _d.SessionKey = key;
+      },
 
-			// Login
-			login: rest(POST, '/login'), // backendService.login(attrs)
-			logout: rest(POST, '/logout'),
+      // Login
+      login: rest(POST, '/login'), // backendService.login(attrs)
+      logout: rest(POST, '/logout'),
 
-			// Sessions
-			getSessionById: rest(GET, '/sessions/:ID'),
+      // Sessions
+      getSessionById: rest(GET, '/sessions/:ID'),
 
-			// ListItem
-			getListItemById: function (attrs) { return rest(GET, '/listitems/:ID')(attrs); },
-			deleteListItemById: [DELETE, '/listitems/:ID'],
-			getDetailsByListItemId: [GET, '/listitems/:ID/details'],
-			postListItem: [POST, '/listitems'],
+      // ListItem
+      getListItemById: function (attrs) { return rest(GET, '/listitems/:ID')(attrs); },
+      deleteListItemById: [DELETE, '/listitems/:ID'],
+      getDetailsByListItemId: [GET, '/listitems/:ID/details'],
+      postListItem: [POST, '/listitems'],
 
-			// List
-			getRootLists: rest(GET, '/lists'),
-			getListById: function (attrs) { return rest(GET, '/lists/:ID')(attrs); },
-			deleteListById: [DELETE, '/lists/:ID'],
-			getListItemsByListId: function (attrs) { return rest(GET, '/lists/:ID/items')(attrs); },
-			getListsByParentId: function (attrs) { return rest(GET, '/lists/:ID/lists')(attrs); },
-			postList: [POST, '/lists'],
+      // List
+      getRootLists: rest(GET, '/lists'),
+      getListById: function (attrs) { return rest(GET, '/lists/:ID')(attrs); },
+      deleteListById: [DELETE, '/lists/:ID'],
+      getListItemsByListId: function (attrs) { return rest(GET, '/lists/:ID/items')(attrs); },
+      getListsByParentId: function (attrs) { return rest(GET, '/lists/:ID/lists')(attrs); },
+      postList: [POST, '/lists'],
 
-			// Users
-			getUserById: [GET, '/users/:ID'],
-	    updateUserById: [PATCH, '/users/:ID'],
-	    changeUserPasswordById: [POST, '/users/:ID/change-password'],
-	    changeUserEmailById: [POST, '/users/:ID/change-email'],
-			verifyUserById: [POST, '/users/:ID/verify-email'],
+      // Users
+      getUserById: [GET, '/users/:ID'],
+      updateUserById: [PATCH, '/users/:ID'],
+      changeUserPasswordById: [POST, '/users/:ID/change-password'],
+      changeUserEmailById: [POST, '/users/:ID/change-email'],
+      verifyUserById: [POST, '/users/:ID/verify-email'],
 
-			// Check-in
-			postCheckIn: [POST, '/check-in'],
+      // Check-in
+      postCheckIn: [POST, '/check-in'],
 
-			// Email
-			postFeedback: [POST, '/email'],
+      // Email
+      postFeedback: [POST, '/email'],
 
-			// Register
-			postRegistration: [POST, '/register'],
+      // Register
+      postRegistration: [POST, '/register'],
 
-			// Timezones
-			getTimezones: [GET, '/timezones'],
+      // Timezones
+      getTimezones: [GET, '/timezones'],
 
-		};
+    };
 
-		function rest (method, uri) {
-			return function (attrs) {
-				return new Promise((resolve, reject) => {
-console.log(uri);
-					if (uri.match(/\:ID/)) {
-						uri = uri.replace(/\:ID/, attrs.ID);
-					}
-					console.log(uri);
+    function rest (method, uri) {
+      return function (attrs) {
+        return new Promise((resolve, reject) => {
+// console.log(uri);
+          if (uri.match(/\:ID/)) {
+            uri = uri.replace(/\:ID/, attrs.ID);
+          }
+          // console.log(uri);
 
-					let d = attrs && JSON.stringify(attrs) || undefined;
-					let opts = {
-						method: method,
-						url: 'http://localhost:8888' + uri,
-						headers: {
-							'Content-Type': 'application/json',
-						},
-					};
+          let d = attrs && JSON.stringify(attrs) || undefined;
+          let opts = {
+            method: method,
+            url: 'http://localhost:8888' + uri,
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+            },
+          };
 
-					setSessionIdHeaders(opts);
+          setSessionIdHeaders(opts);
 
-					attrs = attrs || {};
+          attrs = attrs || {};
 
-					if (undefined !== d) {
-						opts.data = d;
-					}
+          if (undefined !== d) {
+            opts.data = d;
+          }
 
-					$http(opts).then(function (res) {
-						resolve(res);
-						console.log(res);
-					}, function (err) {
-						reject(err);
-						console.log(err);
-					});
+          $http(opts).then(function (res) {
+            resolve(res);
+            // console.log(res);
+          }, function (err) {
+            reject(err);
+            // console.log(err);
+          });
 
-				});
-			};
-		}
+        });
+      };
+    }
 
-		function hasSessionData () {
+    function hasSessionData () {
 
-			if (null === _d.UserID) {
-				return false;
-			}
+      if (null === _d.UserID) {
+        return false;
+      }
 
-			if (null === _d.SessionKey) {
-				return false;
-			}
+      if (null === _d.SessionKey) {
+        return false;
+      }
 
-			return true;
+      return true;
 
-		}
+    }
 
-		function setSessionIdHeaders (opts) {
+    function setSessionIdHeaders (opts) {
 
-			if (!hasSessionData()) {
-				return;
-			}
+      if (!hasSessionData()) {
+        return;
+      }
 
-			opts.headers['Endeavour-Auth-User-ID'] = _d.UserID;
-			opts.headers['Endeavour-Session-Key'] = _d.SessionKey;
+      opts.headers['Endeavour-Auth-User-ID'] = _d.UserID;
+      opts.headers['Endeavour-Session-Key'] = _d.SessionKey;
 
-		}
+    }
 
-	}
+  }
 
 })();

@@ -1,58 +1,58 @@
 (function () {
-	'use strict';
+  'use strict';
 
-	/**
-	* @ngdoc function
-	* @name app.service:homeService
-	* @description
-	* # homeService
-	* Service of the app
-	*/
+  /**
+   * @ngdoc function
+   * @name app.service:homeService
+   * @description
+   * # homeService
+   * Service of the app
+   */
 
-	angular.module('home')
-		.factory('listService', listService);
+  angular.module('home')
+    .factory('listService', listService);
 
-	listService.$inject = ['backendService'];
+  listService.$inject = ['backendService'];
 
-	function listService (backendService) {
+  function listService (backendService) {
 
-		return {
+    return {
 
       fetchListById: function fetchListById (ListID) {
-				return new Promise((resolve, reject) => {
-  				backendService.getListById({ ID: ListID })
-  					.then(function (res) {
+        return new Promise((resolve, reject) => {
+          backendService.getListById({ ID: ListID })
+            .then(function (res) {
               let list = res.data;
               resolve(list || {});
-  					})
-  					.catch(reject);
+            })
+            .catch(reject);
         });
       },
 
       fetchItemsInList: function fetchItemsInList (ListID) {
-				return new Promise((resolve, reject) => {
-  				backendService.getListItemsByListId({ ID: ListID })
-  					.then(function (res) {
+        return new Promise((resolve, reject) => {
+          backendService.getListItemsByListId({ ID: ListID })
+            .then(function (res) {
               let items = res.data;
               resolve(items || []);
-  					})
-  					.catch(reject);
+            })
+            .catch(reject);
         });
       },
 
       fetchListsInList: function fetchListsInList (ListID) {
-				return new Promise((resolve, reject) => {
+        return new Promise((resolve, reject) => {
           backendService.getListsByParentId({ ID: ListID })
-  					.then(function (res) {
-  						let lists = res.data;
-  						resolve(lists || []);
-  					})
-  					.catch(reject);
+            .then(function (res) {
+              let lists = res.data;
+              resolve(lists || []);
+            })
+            .catch(reject);
         });
       },
 
-		};
+    };
 
-	}
+  }
 
 })();

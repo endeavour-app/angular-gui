@@ -1,94 +1,94 @@
 (function () {
-	'use strict';
+  'use strict';
 
-	/**
-	* @ngdoc function
-	* @name app.controller:LayoutCtrl
-	* @description
-	* # LayoutCtrl
-	* Controller of the app
-	*/
+  /**
+   * @ngdoc function
+   * @name app.controller:LayoutCtrl
+   * @description
+   * # LayoutCtrl
+   * Controller of the app
+   */
 
-	angular
-		.module('ang-modular')
-		.controller('LayoutCtrl', Layout);
+  angular
+    .module('ang-modular')
+    .controller('LayoutCtrl', Layout);
 
-	Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog', 'loginService'];
+  Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog', 'loginService'];
 
-	/*
-	* recommend
-	* Using function declarations
-	* and bindable members up top.
-	*/
+  /**
+   * recommend
+   * Using function declarations
+   * and bindable members up top.
+   */
 
-	function Layout($mdSidenav, $cookies, $state, $mdToast, $mdDialog, loginService) {
-		/*jshint validthis: true */
-		var vm = this;
+  function Layout($mdSidenav, $cookies, $state, $mdToast, $mdDialog, loginService) {
+    /*jshint validthis: true */
+    var vm = this;
 
-		vm.toggleSidenav = function (menuId) {
-			$mdSidenav(menuId).toggle();
-		};
+    vm.toggleSidenav = function (menuId) {
+      $mdSidenav(menuId).toggle();
+    };
 
-		vm.changePassword = function () {
-			$mdToast.show(
-				$mdToast.simple()
-				.content('Password clicked!')
-				.position('top right')
-				.hideDelay(2000)
-			);
-		};
+    vm.changePassword = function () {
+      $mdToast.show(
+        $mdToast.simple()
+        .content('Password clicked!')
+        .position('top right')
+        .hideDelay(2000)
+      );
+    };
 
-		vm.changeProfile = function (ev) {
-			$mdDialog.show({
-				controller: DialogController,
-				templateUrl: 'tabDialog.tmpl.html',
-				parent: angular.element(document.body),
-				targetEvent: ev,
-				clickOutsideToClose:true
-			})
-			.then(function(answer) {
-				$mdToast.show(
-					$mdToast.simple()
-					.content('You said the information was "' + answer + '".')
-					.position('top right')
-					.hideDelay(2000)
-				);
+    vm.changeProfile = function (ev) {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'tabDialog.tmpl.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true
+      })
+      .then(function(answer) {
+        $mdToast.show(
+          $mdToast.simple()
+          .content('You said the information was "' + answer + '".')
+          .position('top right')
+          .hideDelay(2000)
+        );
 
-			}, function() {
-				$mdToast.show(
-					$mdToast.simple()
-					.content('You cancelled the dialog.')
-					.position('top right')
-					.hideDelay(2000)
-				);
-			});
+      }, function() {
+        $mdToast.show(
+          $mdToast.simple()
+          .content('You cancelled the dialog.')
+          .position('top right')
+          .hideDelay(2000)
+        );
+      });
 
-			function DialogController($scope, $mdDialog) {
-				$scope.hide = function() {
-					$mdDialog.hide();
-				};
+      function DialogController($scope, $mdDialog) {
+        $scope.hide = function() {
+          $mdDialog.hide();
+        };
 
-				$scope.cancel = function() {
-					$mdDialog.cancel();
-				};
+        $scope.cancel = function() {
+          $mdDialog.cancel();
+        };
 
-				$scope.answer = function(answer) {
-					$mdDialog.hide(answer);
-				};
-			}
-		};
+        $scope.answer = function(answer) {
+          $mdDialog.hide(answer);
+        };
+      }
+    };
 
 
-		vm.logOut = function () {
-			loginService.logout();
-		};
+    vm.logOut = function () {
+      loginService.logout();
+    };
 
-		var originatorEv;
-		vm.openMenu = function ($mdOpenMenu, ev) {
-			originatorEv = ev;
-			$mdOpenMenu(ev);
-		};
+    var originatorEv;
+    vm.openMenu = function ($mdOpenMenu, ev) {
+      originatorEv = ev;
+      $mdOpenMenu(ev);
+    };
 
-	}
+  }
 
 })();
