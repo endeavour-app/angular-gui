@@ -6,7 +6,16 @@
   </div>
   <div flex></div>
   <div>
-    <md-button class="md-raised md-primary">
+    <md-button class="md-raised md-primary"
+      ng-click="$list.createNewList()">
+      <md-icon class="material-icons"
+        style="color: rgba(255,255,255,0.7);">
+        folder
+      </md-icon>
+      New Folder
+    </md-button>
+    <md-button class="md-raised md-primary"
+      ng-click="$list.createNewListItem()">
       <md-icon class="material-icons"
         style="color: rgba(255,255,255,0.7);">
         create
@@ -74,14 +83,17 @@
           <div class="layout-column" style="">
             <div style="border: 4px solid #455A64;border-radius: 3px 0 0;padding: 0 24px;border-width: 0 0 4px;background-color: #eee;">
               <div class="layout-row">
-                <md-input-container class="flex">
-                  <label>Enter new task summary</label>
-                  <input>
-                </md-input-container>
-                <button class="md-button">
-                  <md-icon class="material-icons">add</md-icon>
-                  Enter
-                </button>
+                <form>
+                  <md-input-container class="flex">
+                    <label>Enter new task summary</label>
+                    <input ng-model="$list.newItemSummary">
+                  </md-input-container>
+                  <md-button class="md-icon-button md-primary"
+                    ng-click="$list.createNewListItem()"
+                    type="submit">
+                    <md-icon class="material-icons">add</md-icon>
+                  </md-button>
+                </form>
               </div>
             </div>
             <md-list>

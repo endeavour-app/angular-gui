@@ -56,7 +56,7 @@
         <p>{{ item.Title }}</p>
       </md-list-item>
       <md-list-item ng-repeat="item in vm.admin"
-        ng-click="vm.showSettingsBottom($event)">
+        ng-click="$home.createNewList()">
         <div class="inset">
           <md-icon class="material-icons">
             create

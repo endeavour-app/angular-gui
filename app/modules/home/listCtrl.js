@@ -35,8 +35,56 @@
     $list.lists = list.lists;
     $list.items = list.items;
 
+    $list.newItemSummary = '';
+
     $list.getParentId = function () {
       return list.model.ParentID;
+    };
+
+    $list.createNewList = function () {
+
+      let newList = {
+        ParentID: $list.model.ID,
+        Title: 'New Sub-Folder',
+      };
+
+      listService
+        .createList(newList)
+        .then(function (res) {
+          Object.assign(newList, res.data);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+      $list.lists.push(newList);
+
+    };
+
+    function useNewItemSummary () {
+      let newItemSummary = $list.newItemSummary;
+      $list.newItemSummary = '';
+      return newItemSummary || 'New Item';
+    }
+
+    $list.createNewListItem = function () {
+
+      let newListItem = {
+        ListID: $list.model.ID,
+        Summary: useNewItemSummary(),
+      };
+
+      listService
+        .createListItem(newListItem)
+        .then(function (res) {
+          Object.assign(newListItem, res.data);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+      $list.items.push(newListItem);
+
     };
 
     loadList();

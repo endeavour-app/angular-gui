@@ -239,7 +239,7 @@
       }
 
       changeUserPasswordById (attrs) {
-        return rest(POST, '/users/:ID/change-password')(attrs);
+        return rest(POST, `/users/:ID/change-password`)(attrs);
       }
 
       changeUserEmailById (attrs) {
@@ -269,6 +269,19 @@
       getTimezones (attrs) {
         return rest(GET, '/timezones')(attrs);
       }
+
+      deleteModel (model) {
+
+      }
+
+      setModelAttrValue (model, attr, newValue) {
+
+      }
+
+      appendModelAttrValue (model, attr, newValue) {
+
+      }
+
     }
 
     return new BackendService();

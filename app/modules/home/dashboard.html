@@ -64,8 +64,14 @@
                     layout-align="center start"
                     layout-fill>
                     <div class="grid-item-title">
-                      <div class="md-body-1">
+                      <div class="md-body-1"
+                        ng-if="!$home.renaming[item.ID]"
+                        ng-click="$home.toggleRenaming($event, item)">
                         {{ item.Title }}
+                      </div>
+                      <div ng-if="$home.renaming[item.ID]">
+                        <input class="md-body-1"
+                          ng-model="item.Title">
                       </div>
                     </div>
                     <div class="grid-item-info">
@@ -81,7 +87,7 @@
           <md-list-item flex="33">
             <div layout-fill>
               <md-button class="md-grid-item-content md-no-style md-primary md-raised"
-                ui-sref="app.home.dashboard"
+                ng-click="$home.createNewList()"
                 layout="row"
                 layout-fill
                 md-whiteframe="1dp">

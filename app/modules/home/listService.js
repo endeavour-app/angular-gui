@@ -18,6 +18,14 @@
 
     return {
 
+      createList: function createList (d) {
+        return backendService.postList(d);
+      },
+
+      createListItem: function createListItem (d) {
+        return backendService.postListItem(d);
+      },
+
       fetchListById: function fetchListById (ListID) {
         return new Promise((resolve, reject) => {
           backendService.getListById({ ID: ListID })

@@ -22,6 +22,10 @@
 
       topLevelLists: topLevelLists,
 
+      createTopLevelList: function createTopLevelList (d) {
+        return backendService.postList(d);
+      },
+
       fetchTopLevelLists: function fetchTopLevelLists () {
         return backendService.getRootLists()
           .then(function (res) {
