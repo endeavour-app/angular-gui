@@ -30,7 +30,12 @@
     var _d = {
       UserID: null,
       SessionKey: null,
+      Session: {},
     };
+
+    function setSession (d) {
+      Object.assign(_d.Session, d);
+    }
 
     class BackendService {
 
@@ -42,10 +47,22 @@
         return hasSessionData();
       }
 
-      getSession () {
-        // Session.get({ id: 0 }, function (session) {
-        //   console.log(session);
-        // });
+      refreshSession () {
+        return new Promise((resolve, reject) => {
+
+          this
+            .getSessionById(0)
+            .then((res) => {
+              setSession(res.data);
+              resolve(res);
+            })
+            .catch((err) => {
+              console.log(err);
+              this.clearSession();
+              reject();
+            });
+
+        });
       }
 
       /**
@@ -60,14 +77,14 @@
       }
 
       /**
-       * backendService.useSession(UserID, SessionKey)
+       * backendService.useSessionIdentification(UserID, SessionKey)
        *
        * Sets the session UserID and SessionKey
        *
        * @param {String|Number} UserID The Session owner's User ID
        * @param {String} SessionKey The Session Key
        */
-      useSession (UserID, SessionKey) {
+      useSessionIdentification (UserID, SessionKey) {
         _d.UserID = UserID;
         _d.SessionKey = SessionKey;
       }
@@ -102,13 +119,20 @@
         return new Promise((resolve, reject) => {
           rest(POST, '/login')(attrs)
             .then((res) => {
-              this.useSession(res.data.UserID, res.data.Key);
+              this.useSessionIdentification(res.data.UserID, res.data.Key);
+              setSession(res.data);
               resolve(res);
             })
             .catch(reject);
         });
       }
 
+      /**
+       * backendService.logout(attrs)
+       *
+       * @param {Object} attrs Attributes to send in the request body
+       * @return {Promise}
+       */
       logout (attrs) {
         return rest(POST, '/logout')(attrs);
       }
@@ -116,9 +140,11 @@
       /**
        * backendService.getSessionById(id)
        *
+       * @param {String|Number} id The ID of the Session to fetch
+       * @return {Promise}
        */
-      getSessionById (attrs) {
-        return rest(GET, '/sessions/:ID')(attrs);
+      getSessionById (id) {
+        return rest(GET, '/sessions/:ID')({ ID: id });
       }
 
       /**
@@ -130,7 +156,7 @@
        * ```javascript
        * # Example
        * backendService
-       *   .getListItemById({ ID: 137 })
+       *   .getListItemById(137)
        *   .then(function (res) => {
        *     let listItem = res.data;
        *   })
@@ -139,7 +165,7 @@
        *   });
        * ```
        *
-       * @param {*} id The ID of the ListItem to fetch
+       * @param {String|Number} id The ID of the ListItem to fetch
        * @return {Promise}
        */
       getListItemById (id) {

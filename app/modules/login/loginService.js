@@ -16,12 +16,10 @@
 
   function homeService($http, backendService) {
 
-    backendService.getSession();
-
     return {
 
       fetchSession: function fetchSession () {
-        return backendService.getSessionById({ ID: 0 });
+        return backendService.getSessionById(0);
       },
 
       useSession: function useSession (id, token) {
