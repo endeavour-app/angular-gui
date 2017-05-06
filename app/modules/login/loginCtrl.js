@@ -42,8 +42,6 @@
         .then(function (res) {
           console.log(res);
 
-          loginService.useSession(res.data.UserID, res.data.Key);
-
           loginService.fetchSession()
             .then(function (res) {
               window.location = '/#!/dashboard';

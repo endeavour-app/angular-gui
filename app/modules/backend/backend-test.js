@@ -121,6 +121,19 @@
 
       });
 
+      it('Should set the session on success', function (done) {
+
+        result
+          .then(function (res) {
+            expect(backendService.isSessionSet()).toBe(true);
+            done();
+          })
+          .catch(function (err) {
+            done(false);
+          });
+
+      });
+
     });
 
     describe('backendService.getListItemById(id)', function () {

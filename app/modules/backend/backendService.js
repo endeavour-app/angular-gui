@@ -32,27 +32,45 @@
       SessionKey: null,
     };
 
-    return {
+    class BackendService {
 
-      isSessionSet: function () {
+      constructor () {
+
+      }
+
+      isSessionSet () {
         return hasSessionData();
-      },
+      }
 
-      getSession: function () {
+      getSession () {
         // Session.get({ id: 0 }, function (session) {
         //   console.log(session);
         // });
-      },
+      }
 
-      clearSession: function () {
+      /**
+       * backendService.clearSession()
+       *
+       * Clears the session UserID and SessionKey; Effectively forgets the
+       * current session.
+       */
+      clearSession () {
         _d.UserID = null;
         _d.SessionKey = null;
-      },
+      }
 
-      useSession: function (uid, key) {
-        _d.UserID = uid;
-        _d.SessionKey = key;
-      },
+      /**
+       * backendService.useSession(UserID, SessionKey)
+       *
+       * Sets the session UserID and SessionKey
+       *
+       * @param {String|Number} UserID The Session owner's User ID
+       * @param {String} SessionKey The Session Key
+       */
+      useSession (UserID, SessionKey) {
+        _d.UserID = UserID;
+        _d.SessionKey = SessionKey;
+      }
 
       /**
        * backendService.login(attrs)
@@ -80,14 +98,28 @@
        * @param {Object} attrs Authentication credentials
        * @return {Promise}
        */
-      login: function login (attrs) {
-        return rest(POST, '/login')(attrs);
-      },
+      login (attrs) {
+        return new Promise((resolve, reject) => {
+          rest(POST, '/login')(attrs)
+            .then((res) => {
+              this.useSession(res.data.UserID, res.data.Key);
+              resolve(res);
+            })
+            .catch(reject);
+        });
+      }
 
-      logout: rest(POST, '/logout'),
+      logout (attrs) {
+        return rest(POST, '/logout')(attrs);
+      }
 
-      // Sessions
-      getSessionById: rest(GET, '/sessions/:ID'),
+      /**
+       * backendService.getSessionById(id)
+       *
+       */
+      getSessionById (attrs) {
+        return rest(GET, '/sessions/:ID')(attrs);
+      }
 
       /**
        * backendService.getListItemById(id)
@@ -110,42 +142,89 @@
        * @param {*} id The ID of the ListItem to fetch
        * @return {Promise}
        */
-      getListItemById: function (id) {
+      getListItemById (id) {
         return rest(GET, '/listitems/:ID')({ ID: id });
-      },
+      }
 
-      deleteListItemById: [DELETE, '/listitems/:ID'],
-      getDetailsByListItemId: [GET, '/listitems/:ID/details'],
-      postListItem: [POST, '/listitems'],
+      deleteListItemById (attrs) {
+        return rest(DELETE, '/listitems/:ID')(attrs);
+      }
 
-      // List
-      getRootLists: rest(GET, '/lists'),
-      getListById: function (attrs) { return rest(GET, '/lists/:ID')(attrs); },
-      deleteListById: [DELETE, '/lists/:ID'],
-      getListItemsByListId: function (attrs) { return rest(GET, '/lists/:ID/items')(attrs); },
-      getListsByParentId: function (attrs) { return rest(GET, '/lists/:ID/lists')(attrs); },
-      postList: [POST, '/lists'],
+      getDetailsByListItemId (attrs) {
+        return rest(GET, '/listitems/:ID/details')(attrs);
+      }
+
+      postListItem (attrs) {
+        return rest(POST, '/listitems')(attrs);
+      }
+
+      getRootLists (attrs) {
+        return rest(GET, '/lists')(attrs);
+      }
+
+      getListById (attrs) {
+        return rest(GET, '/lists/:ID')(attrs);
+      }
+
+      deleteListById (attrs) {
+        return rest(DELETE, '/lists/:ID')(attrs);
+      }
+
+      getListItemsByListId (attrs) {
+        return rest(GET, '/lists/:ID/items')(attrs);
+      }
+
+      getListsByParentId (attrs) {
+        return rest(GET, '/lists/:ID/lists')(attrs);
+      }
+
+      postList (attrs) {
+        return rest(POST, '/lists')(attrs);
+      }
 
       // Users
-      getUserById: [GET, '/users/:ID'],
-      updateUserById: [PATCH, '/users/:ID'],
-      changeUserPasswordById: [POST, '/users/:ID/change-password'],
-      changeUserEmailById: [POST, '/users/:ID/change-email'],
-      verifyUserById: [POST, '/users/:ID/verify-email'],
+      getUserById (attrs) {
+        return rest(GET, '/users/:ID')(attrs);
+      }
+
+      updateUserById (attrs) {
+        return rest(PATCH, '/users/:ID')(attrs);
+      }
+
+      changeUserPasswordById (attrs) {
+        return rest(POST, '/users/:ID/change-password')(attrs);
+      }
+
+      changeUserEmailById (attrs) {
+        return rest(POST, '/users/:ID/change-email')(attrs);
+      }
+
+      verifyUserById (attrs) {
+        return rest(POST, '/users/:ID/verify-email')(attrs);
+      }
 
       // Check-in
-      postCheckIn: [POST, '/check-in'],
+      postCheckIn (attrs) {
+        return rest(POST, '/check-in')(attrs);
+      }
 
       // Email
-      postFeedback: [POST, '/email'],
+      postFeedback (attrs) {
+        return rest(POST, '/email')(attrs);
+      }
 
       // Register
-      postRegistration: [POST, '/register'],
+      postRegistration (attrs) {
+        return rest(POST, '/register')(attrs);
+      }
 
       // Timezones
-      getTimezones: [GET, '/timezones'],
+      getTimezones (attrs) {
+        return rest(GET, '/timezones')(attrs);
+      }
+    }
 
-    };
+    return new BackendService();
 
     function rest (method, uri) {
       return function (attrs) {
