@@ -70,7 +70,35 @@
                     </div>
                     <div class="grid-item-info">
                       <div class="md-caption">
-                        Created 12/3/17
+                        Created {{ item.Created.date.substr(0,10) }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </md-button>
+            </div>
+          </md-list-item>
+          <md-list-item flex="33">
+            <div layout-fill>
+              <md-button class="md-grid-item-content md-no-style md-primary md-raised"
+                ui-sref="app.home.dashboard"
+                layout="row"
+                layout-fill
+                md-whiteframe="1dp">
+                <div class="grid-item-icon">
+                  <md-icon class="material-icons">
+                    create
+                  </md-icon>
+                </div>
+                <div class="grid-item-label"
+                  flex>
+                  <div class="md-grid-text"
+                    layout="column"
+                    layout-align="center start"
+                    layout-fill>
+                    <div class="grid-item-title">
+                      <div class="md-body-1">
+                        Create New Folder
                       </div>
                     </div>
                   </div>

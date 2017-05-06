@@ -1,12 +1,12 @@
 <div style="padding: 0 24px 16px;background: #455A64;color: rgba(255,255,255,0.7);height: 128px;min-height: 128px;"
   layout="row"
   layout-align="end end">
-  <div style="padding-left: 24px;padding-bottom: 8px;">
+  <div style="padding-left: 32px;padding-bottom: 8px;">
     <span class="md-display-1">{{ $list.model.Title }}</span>
   </div>
   <div flex></div>
   <div>
-    <md-button>
+    <md-button class="md-raised md-primary">
       <md-icon class="material-icons"
         style="color: rgba(255,255,255,0.7);">
         create
@@ -16,6 +16,7 @@
   </div>
 </div>
 <div class="md-padding"
+  style="padding: 16px 24px;"
   layout="row"
   flex>
 
@@ -87,13 +88,26 @@
               <md-list-item
                 style="border-bottom: 1px solid rgba(0,0,0,0.12);"
                 ng-repeat="item in $list.items">
-                <div class="inset">
+                <!-- <div class="inset">
                   <md-checkbox style="margin: 0px;" ng-model="item.Completed">
+                </div> -->
+                <div layout="column"
+                  style="padding: 16px 8px 24px;">
+                  <span class="md-caption"
+                    style="color: rgba(0,0,0,0.38);">
+                    {{ item.Created.date.substr(0,10) }}
+                    <md-icon ng-if="!!item.Completed.date">
+                      check
+                    </md-icon>
+                  </span>
+                  <span class="md-subhead">{{ item.Summary }}</span>
                 </div>
-                <p>{{ item.Summary }}</p>
-                <md-icon class="material-icons manage-item">
-                  more_vert
-                </md-icon>
+                <md-button class="md-icon-button"
+                  style="position: absolute;top:8px;right:0px;">
+                  <md-icon class="material-icons manage-item">
+                    more_vert
+                  </md-icon>
+                </md-button>
               </md-list-item>
             </md-list>
           </div>

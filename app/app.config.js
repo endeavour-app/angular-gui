@@ -19,17 +19,9 @@
   configureThemes.$inject = ['$mdThemingProvider'];
   function configureThemes (  $mdThemingProvider) {
 
-    // var neonRedMap = $mdThemingProvider.extendPalette('red', {
-    //   '500': '#ff0000',
-    //   'contrastDefaultColor': 'dark'
-    // });
-    //
-    // // Register the new color palette map with the name <code>neonRed</code>
-    // $mdThemingProvider.definePalette('neonRed', neonRedMap);
-    //
-    // // Use that theme for the primary intentions
-    // $mdThemingProvider.theme('default')
-    //   .primaryPalette('neonRed');
+    // Use that theme for the primary intentions
+    $mdThemingProvider.theme('default')
+      .primaryPalette('blue');
 
     var sidebarBlueGreyMap = $mdThemingProvider.extendPalette('blue-grey', {
       // 'contrastDefaultColor': 'dark',
