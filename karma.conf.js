@@ -8,36 +8,42 @@ module.exports = function (config) {
 
 		// List of files / patterns to load in the browser
 		files: [
-			'src/bower_components/jquery/dist/jquery.js',
 			'src/bower_components/es5-shim/es5-shim.js',
 			'src/bower_components/json3/lib/json3.min.js',
-			'src/bower_components/bootstrap/dist/js/bootstrap.js',
 			'src/bower_components/angular/angular.js',
-			'src/bower_components/angular-aria/angular-aria.js',
 			'src/bower_components/angular-resource/angular-resource.js',
 			'src/bower_components/angular-mocks/angular-mocks.js',
 			'src/bower_components/angular-cookies/angular-cookies.js',
 			'src/bower_components/angular-sanitize/angular-sanitize.js',
 			'src/bower_components/angular-animate/angular-animate.js',
-			'src/bower_components/angular-touch/angular-touch.js',
+			// 'src/bower_components/angular-touch/angular-touch.js',
 			'src/bower_components/angular-ui-router/release/angular-ui-router.js',
-			'src/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
 			'src/bower_components/angular-aria/angular-aria.js',
 			'src/bower_components/angular-material/angular-material.js',
 			'src/bower_components/angular-messages/angular-messages.js',
 			'src/bower_components/angular-material-icons/angular-material-icons.js',
 			'app/app.js',
+
+			'app/modules/backend/backendModule.js',
+			'app/modules/backend/backendService.js',
+			'app/modules/backend/backend-test.js',
+
+			'app/modules/login/loginModule.js',
+
+			'app/modules/anon/anonModule.js',
+
 			'app/modules/home/homeModule.js',
-			'app/modules/home/homeCtrl.js',
-			'app/modules/home/homeRoute.js',
-			'app/modules/home/homeService.js',
-			'app/modules/home/home-test.js'
+			// 'app/modules/home/homeCtrl.js',
+			// 'app/modules/home/homeRoute.js',
+			// 'app/modules/home/homeService.js',
+			// 'app/modules/home/home-test.js',
+
 		],
 
 		// Test results reporter to use
 		// Possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
 		//reporters: ['progress'],
-		reporters: ['spec'],
+		reporters: ['progress'],
 
 		// Web server port
 		port: 9876,
@@ -60,13 +66,13 @@ module.exports = function (config) {
 		// - Safari (only Mac)
 		// - PhantomJS
 		// - IE (only Windows)
-		browsers: ['PhantomJS'],
+		browsers: ['Chrome'],
 
 		// If browser does not capture in given timeout [ms], kill it
 		captureTimeout: 60000,
 
 		// Continuous Integration mode
 		// If true, it capture browsers, run tests and exit
-		singleRun: true
+		singleRun: false,
 	});
 };

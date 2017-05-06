@@ -34,6 +34,10 @@
 
 		return {
 
+			isSessionSet: function () {
+				return hasSessionData();
+			},
+
 			getSession: function () {
 				// Session.get({ id: 0 }, function (session) {
 				// 	console.log(session);
@@ -58,7 +62,7 @@
 			getSessionById: rest(GET, '/sessions/:ID'),
 
 			// ListItem
-			getListItemById: [GET, '/listitems/:ID'],
+			getListItemById: function (attrs) { return rest(GET, '/listitems/:ID')(attrs); },
 			deleteListItemById: [DELETE, '/listitems/:ID'],
 			getDetailsByListItemId: [GET, '/listitems/:ID/details'],
 			postListItem: [POST, '/listitems'],
