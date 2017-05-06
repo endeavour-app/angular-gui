@@ -10,19 +10,43 @@
 	*/
 
 	describe('backendService', function () {
-		var backendService = null, $httpBackend, loginRequestHandler;
+		var backendService = null, $httpBackend;
+		var loginRequestHandler, getListItemByIdRequestHandler;
 
 		beforeEach(function () {
 			module('backend');
 		});
 
 		beforeEach(inject(function ($injector) {
+
 			backendService = $injector.get('backendService');
 			$httpBackend = $injector.get('$httpBackend');
 
+			let loginResponse = {
+				ID: 123,
+				UserID: 456,
+			};
+
 			loginRequestHandler = $httpBackend
 				.when('POST', 'http://localhost:8888/login')
-      		.respond({userId: 'userX'}, {'Content-Type': 'application/json'});
+      		.respond(loginResponse, {'Content-Type': 'application/json'});
+
+			let getListItemResponse = function () {
+				return {
+					"ID":136,
+					"ListID":10,
+					"UserID":1,
+					"Summary":"make it add something when you double click",
+					"Created":{"date":"2014-03-17 01:45:08.000000","timezone_type":3,"timezone":"UTC"},
+					"Completed":null,
+					"Due":null,
+					"Deleted":false
+				};
+			};
+
+			getListItemByIdRequestHandler = $httpBackend
+				.when('GET', 'http://localhost:8888/listitems/123')
+      		.respond(getListItemResponse(), {'Content-Type': 'application/json'});
 
 		}));
 
@@ -37,15 +61,21 @@
 
 		describe('backendService.login(attrs)', function () {
 
-			it('Should return a promise', function () {
+			let result;
+
+			beforeEach(function () {
 
 				$httpBackend.expectPOST('http://localhost:8888/login');
 
-				let result = backendService.login({
+				result = backendService.login({
 
 				});
 
 				$httpBackend.flush();
+
+			});
+
+			it('Should return a promise', function () {
 
 				expect(result).toEqual(jasmine.any(Promise));
 
@@ -55,13 +85,34 @@
 
 		describe('backendService.getListItemById(attrs)', function () {
 
-			it('Should return a promise', function () {
+			let result;
 
-				let result = backendService.getListItemById({
+			beforeEach(function () {
+
+				$httpBackend.expectGET('http://localhost:8888/listitems/123');
+
+				result = backendService.getListItemById({
 					ID: 123,
 				});
 
+				$httpBackend.flush();
+
+			});
+
+			it('Should return a promise', function () {
+
 				expect(result).toEqual(jasmine.any(Promise));
+
+			});
+
+			it('Should request the correct remote resource', function (done) {
+
+				result.then(function (res) {
+					expect(res.config.url).toBe('http://localhost:8888/listitems/123');
+					done();
+				}).catch(function (err) {
+					done(false);
+				});
 
 			});
 
