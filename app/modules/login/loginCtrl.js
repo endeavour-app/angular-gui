@@ -28,7 +28,7 @@
     $login.version = "1.0.0";
 
     $login.credentials = {
-      username: 'kounterfeitreality@gmail.com',
+      username: 'a.tester@localhost',
       password: '$kazahawk1097',
     };
 
