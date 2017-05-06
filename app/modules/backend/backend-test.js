@@ -68,7 +68,8 @@
 				$httpBackend.expectPOST('http://localhost:8888/login');
 
 				result = backendService.login({
-
+					EmailAddress: 'test@localhost',
+					Password: 'mypassword1',
 				});
 
 				$httpBackend.flush();
@@ -78,6 +79,53 @@
 			it('Should return a promise', function () {
 
 				expect(result).toEqual(jasmine.any(Promise));
+
+			});
+
+			it('Should issue the request to the correct remote endpoint', function (done) {
+
+				result
+					.then(function (res) {
+						expect(res.config.url).toBe('http://localhost:8888/login');
+						done();
+					})
+					.catch(function (err) {
+						done(false);
+					});
+
+			});
+
+			it('Should issue the request using the correct HTTP method', function (done) {
+
+				result
+					.then(function (res) {
+						expect(res.config.method).toBe('POST');
+						done();
+					})
+					.catch(function (err) {
+						done(false);
+					});
+
+			});
+
+			it('Should send the correct data to the remote endpoint', function (done) {
+
+				result
+					.then(function (res) {
+
+						let requestData = JSON.parse(res.config.data);
+
+						expect(requestData).toEqual(jasmine.objectContaining({
+							EmailAddress: 'test@localhost',
+							Password: 'mypassword1',
+						}));
+
+						done();
+
+					})
+					.catch(function (err) {
+						done(false);
+					});
 
 			});
 
@@ -107,12 +155,27 @@
 
 			it('Should request the correct remote resource', function (done) {
 
-				result.then(function (res) {
-					expect(res.config.url).toBe('http://localhost:8888/listitems/123');
-					done();
-				}).catch(function (err) {
-					done(false);
-				});
+				result
+					.then(function (res) {
+						expect(res.config.url).toBe('http://localhost:8888/listitems/123');
+						done();
+					})
+					.catch(function (err) {
+						done(false);
+					});
+
+			});
+
+			it('Should issue the request using the correct HTTP method', function (done) {
+
+				result
+					.then(function (res) {
+						expect(res.config.method).toBe('GET');
+						done();
+					})
+					.catch(function (err) {
+						done(false);
+					});
 
 			});
 
