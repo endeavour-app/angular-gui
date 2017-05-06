@@ -4,7 +4,7 @@
 
   <div flex="20"
     style="margin: 8px;">
-    <div layout="column">
+    <!-- <div layout="column">
       <span class="md-body-2">
         Lists
       </span>
@@ -20,18 +20,68 @@
           <span>{{ item.Title }}</span>
         </li>
       </ul>
-    </div>
+    </div> -->
   </div>
 
   <div class=""
     style="margin: 8px;"
     flex>
-    <md-content md-whiteframe="1dp"
-      layout-fill>
+    <!-- <md-content md-whiteframe="1dp"
+      layout-fill> -->
       <div layout="column">
-        Meow
+
+        <div>
+          <div layout="row">
+            <h2 class="md-display-3"
+              style="padding-left: 16px;">
+              My lists
+            </h2>
+          </div>
+        </div>
+
+        <md-list class="folder-grid"
+          layout="row"
+          layout-align="start start"
+          layout-wrap
+          flex>
+          <md-list-item ng-repeat="item in $home.lists"
+            flex="33">
+            <div layout-fill>
+              <md-button class="md-grid-item-content md-no-style"
+                ui-sref="app.home.list({ id: item.ID })"
+                layout="row"
+                layout-fill
+                md-whiteframe="1dp">
+                <div class="grid-item-icon">
+                  <md-icon class="material-icons">
+                    folder
+                  </md-icon>
+                </div>
+                <div class="grid-item-label"
+                  flex>
+                  <div class="md-grid-text"
+                    layout="column"
+                    layout-align="center start"
+                    layout-fill>
+                    <div class="grid-item-title">
+                      <div class="md-body-1">
+                        {{ item.Title }}
+                      </div>
+                    </div>
+                    <div class="grid-item-info">
+                      <div class="md-caption">
+                        Created 12/3/17
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </md-button>
+            </div>
+          </md-list-item>
+        </md-list>
+
       </div>
-    </md-content>
+    <!-- </md-content> -->
   </div>
 
 </div>

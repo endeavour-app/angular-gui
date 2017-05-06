@@ -1,9 +1,10 @@
-<div style="padding: 24px;background: #1976D2;color: rgba(255,255,255,0.7);">
+<div style="padding: 24px;background: #455A64;color: rgba(255,255,255,0.7);">
   <span class="md-display-1">{{ $list.model.Title }}</span>
 </div>
 <div class="md-padding"
   layout="row"
-  flex>
+  flex
+  ng-cloak>
 
   <div style="margin: 8px;width: 260px;">
     <div layout="column">
@@ -45,19 +46,33 @@
           </span>
         </div> -->
         <md-content flex="40">
-          <md-list>
-            <md-list-item
-              style="border-bottom: 1px solid rgba(0,0,0,0.12);"
-              ng-repeat="item in $list.items">
-              <div class="inset">
-                <md-checkbox style="margin: 0px;" ng-model="item.Completed">
+          <div class="layout-column" style="">
+            <div style="border: 4px solid #455A64;border-radius: 3px 0 0;padding: 0 24px;border-width: 0 0 4px;background-color: #eee;">
+              <div class="layout-row">
+                <md-input-container class="flex">
+                  <label>Enter new task summary</label>
+                  <input>
+                </md-input-container>
+                <button class="md-button">
+                  <md-icon class="material-icons">add</md-icon>
+                  Enter
+                </button>
               </div>
-              <p>{{ item.Summary }}</p>
-              <md-icon class="material-icons manage-item">
-                more_vert
-              </md-icon>
-            </md-list-item>
-          </md-list>
+            </div>
+            <md-list>
+              <md-list-item
+                style="border-bottom: 1px solid rgba(0,0,0,0.12);"
+                ng-repeat="item in $list.items">
+                <div class="inset">
+                  <md-checkbox style="margin: 0px;" ng-model="item.Completed">
+                </div>
+                <p>{{ item.Summary }}</p>
+                <md-icon class="material-icons manage-item">
+                  more_vert
+                </md-icon>
+              </md-list-item>
+            </md-list>
+          </div>
         </md-content>
         <div style="background: #eee;border-left: 1px solid rgba(0,0,0,0.12);padding: 24px;"
           flex>

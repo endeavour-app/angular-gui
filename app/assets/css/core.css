@@ -1,15 +1,74 @@
 
 body, html {
   font-size: 14.4px;
-  font-family: "Roboto", sans-serif;
-}
+  font-family: "Roboto", sans-serif; }
 
 md-sidenav md-list-item._md-button-wrap.active {
-    background-color: rgba(0,0,0,0.12);
-}
+  background-color: rgba(0,0,0,0.12); }
 
 md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolbar) {
-    color: rgba(255,255,255,0.87);
-    background: #1565C0;
-    border-bottom: 1px solid rgba(255,255,255,0.24);
+  color: rgba(255,255,255,0.87);
+  background: #37474F;
+  border-bottom: 1px solid rgba(255,255,255,0.24); }
+
+md-sidenav.md-sidenavTheme-theme, md-sidenav.md-sidenavTheme-theme md-content {
+  background-color: rgb(48,48,48); }
+
+
+
+.folder-grid {
+  padding: 8px;
 }
+
+.folder-grid md-list-item {
+  padding: 8px;
+}
+
+.folder-grid md-list-item a {
+  background-color: #fff;
+}
+
+.folder-grid .md-grid-item-content .grid-item-icon md-icon {
+  font-size: 36px;
+  height: 36px;
+  width: 36px;
+  margin: 16px 16px 16px 0;
+}
+
+.folder-grid .md-grid-item-content .grid-item-label {
+  text-align: left;
+  white-space: nowrap;
+}
+
+.folder-grid .md-grid-item-content .grid-item-label .grid-item-info {
+  line-height: 1;
+  margin-top: 4px;
+  color: rgba(0,0,0,0.38);
+}
+
+.folder-grid .md-grid-item-content .grid-item-label .grid-item-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+/*.folder-grid .md-inline-list-icon-label {
+  display: inline-block;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-top: -10px;
+  height: 24px;
+  vertical-align: middle; }
+
+.folder-grid .md-grid-item-content {
+  height: 90px;
+  padding-top: 10px; }
+
+.folder-grid .md-grid-item-content md-icon {
+  height: 48px;
+  width: 48px; }
+
+.folder-grid .md-grid-text {
+  padding-bottom: 5px; }
+
+.folder-grid md-list-item, .folder-grid md-list-item .md-list-item-inner {
+  min-height: 48px; }*/
