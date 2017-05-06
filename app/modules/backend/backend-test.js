@@ -36,34 +36,6 @@
       expect(backendService.isSessionSet()).toBe(false);
     });
 
-    /**
-     * @name backend.function:login
-     * @description
-     * backendService.login(attrs)
-     *
-     * Attempt to authenticate via backend using credentials provided in
-     * `attrs` argument.
-     *
-     * ```javascript
-     * # Example login
-     * let credentials = {
-     *   EmailAddress: 'tester@localhost',
-     *   Password: 'mypassword1'
-     * };
-     *
-     * backendService
-     *   .login(credentials)
-     *   .then(function (res) => {
-     *     let session = res.data;
-     *   })
-     *   .catch(function (err) => {
-     *
-     *   });
-     * ```
-     *
-     * @param attrs object Authentication credentials
-     * @return Promise
-     */
     describe('backendService.login(attrs)', function () {
 
       let result;
@@ -151,30 +123,7 @@
 
     });
 
-    /**
-     * @name backend.function:getListItemById
-     * @description
-     * backendService.getListItemById(attrs)
-     *
-     * Fetch a single ListItem identified by the ID property in `attrs`, from
-     * the backend.
-     *
-     * ```javascript
-     * # Example
-     * backendService
-     *   .getListItemById({ ID: 137 })
-     *   .then(function (res) => {
-     *     let listItem = res.data;
-     *   })
-     *   .catch(function (err) => {
-     *
-     *   });
-     * ```
-     *
-     * @param attrs object Authentication credentials
-     * @return Promise
-     */
-    describe('backendService.getListItemById(attrs)', function () {
+    describe('backendService.getListItemById(id)', function () {
 
       let result;
       let testID;
@@ -202,9 +151,7 @@
 
         $httpBackend.expectGET('http://localhost:8888/listitems/' + testID);
 
-        result = backendService.getListItemById({
-          ID: testID,
-        });
+        result = backendService.getListItemById(testID);
 
         $httpBackend.flush();
 

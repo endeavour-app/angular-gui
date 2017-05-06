@@ -54,15 +54,66 @@
         _d.SessionKey = key;
       },
 
-      // Login
-      login: rest(POST, '/login'), // backendService.login(attrs)
+      /**
+       * backendService.login(attrs)
+       *
+       * Attempt to authenticate via backend using credentials provided in
+       * `attrs` argument.
+       *
+       * ```javascript
+       * # Example login
+       * let credentials = {
+       *   EmailAddress: 'tester@localhost',
+       *   Password: 'mypassword1'
+       * };
+       *
+       * backendService
+       *   .login(credentials)
+       *   .then(function (res) => {
+       *     let session = res.data;
+       *   })
+       *   .catch(function (err) => {
+       *
+       *   });
+       * ```
+       *
+       * @param {Object} attrs Authentication credentials
+       * @return {Promise}
+       */
+      login: function login (attrs) {
+        return rest(POST, '/login')(attrs);
+      },
+
       logout: rest(POST, '/logout'),
 
       // Sessions
       getSessionById: rest(GET, '/sessions/:ID'),
 
-      // ListItem
-      getListItemById: function (attrs) { return rest(GET, '/listitems/:ID')(attrs); },
+      /**
+       * backendService.getListItemById(id)
+       *
+       * Fetch a single ListItem identified by the ID property in `attrs`, from
+       * the backend.
+       *
+       * ```javascript
+       * # Example
+       * backendService
+       *   .getListItemById({ ID: 137 })
+       *   .then(function (res) => {
+       *     let listItem = res.data;
+       *   })
+       *   .catch(function (err) => {
+       *
+       *   });
+       * ```
+       *
+       * @param {*} id The ID of the ListItem to fetch
+       * @return {Promise}
+       */
+      getListItemById: function (id) {
+        return rest(GET, '/listitems/:ID')({ ID: id });
+      },
+
       deleteListItemById: [DELETE, '/listitems/:ID'],
       getDetailsByListItemId: [GET, '/listitems/:ID/details'],
       postListItem: [POST, '/listitems'],
@@ -99,11 +150,10 @@
     function rest (method, uri) {
       return function (attrs) {
         return new Promise((resolve, reject) => {
-// console.log(uri);
+
           if (uri.match(/\:ID/)) {
             uri = uri.replace(/\:ID/, attrs.ID);
           }
-          // console.log(uri);
 
           let d = attrs && JSON.stringify(attrs) || undefined;
           let opts = {
@@ -124,10 +174,8 @@
 
           $http(opts).then(function (res) {
             resolve(res);
-            // console.log(res);
           }, function (err) {
             reject(err);
-            // console.log(err);
           });
 
         });
