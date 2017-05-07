@@ -26,6 +26,19 @@
         return backendService.postListItem(d);
       },
 
+      saveListTitle: function saveListTitle (ListID, newTitle) {
+        return new Promise((resolve, reject) => {
+          return backendService.patchList({
+              ID: ListID,
+              Title: newTitle,
+            })
+            .then(function (res) {
+              resolve(res);
+            })
+            .catch(reject);
+        });
+      },
+
       fetchListById: function fetchListById (ListID) {
         return new Promise((resolve, reject) => {
           backendService.getListById({ ID: ListID })

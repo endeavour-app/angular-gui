@@ -36,6 +36,41 @@
     $list.items = list.items;
 
     $list.newItemSummary = '';
+    $list.newTitle = '';
+    $list.renaming = false;
+
+    $list.renameList = function (toggle) {
+
+      if (toggle === true && $list.renaming) {
+        return;
+      }
+
+      if ($list.renaming) {
+        $list.newTitle = $list.model.Title;
+      }
+
+      $list.renaming = !$list.renaming;
+
+    };
+
+    $list.saveNewTitle = function () {
+
+      if (!$list.newTitle) {
+        return $list.renameList();
+      }
+
+      $list.model.Title = $list.newTitle;
+
+      listService
+        .saveListTitle($list.model.ID, $list.model.Title)
+        .then(function (res) {
+          Object.assign($list.model, res.data);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+    };
 
     $list.getParentId = function () {
       return list.model.ParentID;

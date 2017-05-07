@@ -229,6 +229,10 @@
         return rest(POST, '/lists')(attrs);
       }
 
+      patchList (attrs) {
+        return rest(PATCH, '/lists/:ID')(attrs);
+      }
+
       // Users
       getUserById (attrs) {
         return rest(GET, '/users/:ID')(attrs);

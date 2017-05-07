@@ -1,8 +1,24 @@
 <div style="padding: 0 24px 16px;background: #455A64;color: rgba(255,255,255,0.7);height: 128px;min-height: 128px;"
   layout="row"
   layout-align="end end">
-  <div style="padding-left: 32px;padding-bottom: 8px;">
-    <span class="md-display-1">{{ $list.model.Title }}</span>
+  <div style="padding-left: 32px;padding-bottom: 8px;"
+    ng-click="$list.renameList(true)">
+    <div class=""
+      ng-if="!$list.renaming">
+      <span class="md-display-1">{{ $list.model.Title }}</span>
+    </div>
+    <div class=""
+      ng-if="$list.renaming">
+      <form>
+        <input name="newTitle"
+          ng-model="$list.newTitle">
+        <md-button type="submit"
+          class="md-icon-button"
+          ng-click="$list.saveNewTitle()">
+          <md-icon class="material-icons">save</md-icon>
+        </md-button>
+      </form>
+    </div>
   </div>
   <div flex></div>
   <div>
