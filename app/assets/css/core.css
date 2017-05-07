@@ -14,7 +14,8 @@ md-toolbar.md-default-theme:not(.md-menu-toolbar), md-toolbar:not(.md-menu-toolb
 md-sidenav.md-sidenavTheme-theme, md-sidenav.md-sidenavTheme-theme md-content {
   background-color: rgb(48,48,48); }
 
-
+.create-item-form md-input-container .md-errors-spacer {
+  display: none; }
 
 .folder-grid {
   padding: 8px;
