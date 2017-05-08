@@ -29,7 +29,7 @@
 
     $login.credentials = {
       username: 'a.tester@localhost',
-      password: '$kazahawk1097',
+      password: '$MYpassword!',
     };
 
     $login.submit = function () {
