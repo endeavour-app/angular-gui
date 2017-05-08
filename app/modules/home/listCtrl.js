@@ -13,7 +13,7 @@
     .module('home')
     .controller('ListCtrl', List);
 
-  List.$inject = ['listService', '$state', '$stateParams', '$timeout', '_list', '_lists', '_items'];
+  List.$inject = ['listService', '$mdDialog', '$state', '$stateParams', '$timeout', '_list', '_lists', '_items'];
 
   /**
    * recommend
@@ -21,7 +21,7 @@
    * and bindable members up top.
    */
 
-  function List(listService, $state, $stateParams, $timeout, _list, _lists, _items) {
+  function List(listService, $mdDialog, $state, $stateParams, $timeout, _list, _lists, _items) {
     /*jshint validthis: true */
     var $list = this;
 
@@ -76,25 +76,49 @@
       return list.model.ParentID;
     };
 
-    $list.createNewList = function () {
+    $list.deleteList = function ($event) {
+      // Appending dialog to document.body to cover sidenav in docs app
+      var confirm = $mdDialog.confirm()
+        .title('Delete ' + list.model.Title + '?')
+        .textContent('All items and sub-folders will also be removed')
+        .ariaLabel('Confirm Intention')
+        .targetEvent($event)
+        .ok('Delete folder')
+        .cancel('Cancel');
 
-      let newList = {
-        ParentID: $list.model.ID,
-        Title: 'New Sub-Folder',
-      };
+      $mdDialog.show(confirm).then(function() {
+        // on confirm
+      }, function() {
+        // on cancel
+      });
+    };
 
-      listService
-        .createList(newList)
-        .then(function (res) {
-          Object.assign(newList, res.data);
-        })
-        .catch(function (err) {
-          console.log(err);
-        });
+    $list.createNewList = function ($event) {
 
-      $list.lists.push(newList);
+      var confirm = $mdDialog.prompt()
+        .title('Name the new Folder')
+        .placeholder('Folder name')
+        .ariaLabel('Folder name')
+        .initialValue('New Sub-folder')
+        .targetEvent($event)
+        .ok('Create Folder')
+        .cancel('Cancel');
+
+      $mdDialog.show(confirm).then(function(result) {
+        createNewList(result);
+      }, function() {
+
+      });
 
     };
+
+    $list.createNewListItem = function () {
+      createNewListItem(useNewItemSummary());
+    };
+
+    loadList();
+
+    console.log($stateParams);
 
     function useNewItemSummary () {
       let newItemSummary = $list.newItemSummary;
@@ -102,29 +126,55 @@
       return newItemSummary || 'New Item';
     }
 
-    $list.createNewListItem = function () {
+    function createNewList (title) {
 
-      let newListItem = {
-        ListID: $list.model.ID,
-        Summary: useNewItemSummary(),
+      let newList = {
+        ParentID: $list.model.ID,
+        Title: title,
       };
 
       listService
-        .createListItem(newListItem)
+        .createList(newList)
         .then(function (res) {
-          Object.assign(newListItem, res.data);
+          $timeout(function () {
+            Object.assign(newList, res.data);
+            newList.ID = res.data.ID;
+            newList.Created = {
+              date: res.data.Created,
+            };
+          });
         })
         .catch(function (err) {
           console.log(err);
         });
 
-      $list.items.push(newListItem);
+      $list.lists.push(newList);
 
-    };
+    }
 
-    loadList();
+    function createNewListItem (summary) {
 
-    console.log($stateParams);
+      let newListItem = {
+        ListID: $list.model.ID,
+        Summary: summary,
+      };
+
+      listService
+        .createListItem(newListItem)
+        .then(function (res) {
+          $timeout(function () {
+            Object.assign(newListItem, res.data);
+            newListItem.Created = {
+              date: res.data.Created,
+            };
+            $list.items.push(newListItem);
+          });
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+
+    }
 
     function loadList () {
 

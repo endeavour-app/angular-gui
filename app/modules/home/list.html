@@ -23,15 +23,15 @@
   <div flex></div>
   <div>
     <md-button class=""
-      ng-click="$list.deleteList()">
+      ng-click="$list.deleteList($event)">
       <md-icon class="material-icons"
         style="color: rgba(255,255,255,0.7);">
         delete
       </md-icon>
       Delete Folder
     </md-button>
-    <md-button class="md-raised md-primary"
-      ng-click="$list.createNewList()">
+    <md-button class=""
+      ng-click="$list.createNewList($event)">
       <md-icon class="material-icons"
         style="color: rgba(255,255,255,0.7);">
         create_new_folder
@@ -41,47 +41,9 @@
   </div>
 </div>
 <div class="md-padding"
-  style="padding: 16px 24px;"
+  style="padding: 0;"
   layout="row"
   flex>
-
-  <div style="margin: 8px;width: 260px;">
-    <div layout="column">
-      <md-list>
-        <!-- <md-subheader>Lists</md-subheader> -->
-        <md-list-item ui-sref-active="active"
-          ui-sref="app.home.list({ id: $list.getParentId() })"
-          ng-if="$list.getParentId()">
-          <div class="inset">
-            <md-icon class="material-icons">
-              folder
-            </md-icon>
-          </div>
-          <p>..</p>
-        </md-list-item>
-        <md-list-item ui-sref-active="active"
-          ui-sref="app.home.dashboard"
-          ng-if="!$list.getParentId()">
-          <div class="inset">
-            <md-icon class="material-icons">
-              apps
-            </md-icon>
-          </div>
-          <p>Dashboard</p>
-        </md-list-item>
-        <md-list-item ui-sref-active="active"
-          ui-sref="app.home.list({ id: item.ID })"
-          ng-repeat="item in $list.lists">
-          <div class="inset">
-            <md-icon class="material-icons">
-              folder
-            </md-icon>
-          </div>
-          <p>{{ item.Title }}</p>
-        </md-list-item>
-      </md-list>
-    </div>
-  </div>
 
   <div class=""
     style="margin: 8px;"
@@ -92,26 +54,48 @@
       layout-fill>
       <div layout="row"
         layout-fill>
-        <!-- <div>
-          <span class="md-body-2">
-            Items
-          </span>
-        </div> -->
         <div class=""
-          style="background: #fff;padding: 24px;border-radius: 4px 0 0 4px;z-index:1;"
+          style="background: #fff;padding: 0;border-radius: 4px 0 0 4px;z-index:1;"
           md-whiteframe="1dp"
           flex>
-          <span class="md-display-1">{{ $list.model.Title }}</span>
-
           <md-list class="folder-grid"
             layout="row"
             layout-align="start start"
             layout-wrap
             flex>
+            <md-list-item ng-if="$list.model.ParentID"
+              flex="33">
+              <div layout-fill>
+                <md-button class="md-grid-item-content md-no-style md-primary md-raised"
+                  ui-sref="app.home.list({ id: $list.model.ParentID })"
+                  layout="row"
+                  layout-fill
+                  md-whiteframe="1dp">
+                  <div class="grid-item-icon">
+                    <md-icon class="material-icons">
+                      folder
+                    </md-icon>
+                  </div>
+                  <div class="grid-item-label"
+                    flex>
+                    <div class="md-grid-text"
+                      layout="column"
+                      layout-align="center start"
+                      layout-fill>
+                      <div class="grid-item-title">
+                        <div class="md-body-1">
+                          ..
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </md-button>
+              </div>
+            </md-list-item>
             <md-list-item ng-repeat="item in $list.lists"
               flex="33">
               <div layout-fill>
-                <md-button class="md-grid-item-content md-no-style"
+                <md-button class="md-grid-item-content md-no-style md-primary md-raised"
                   ui-sref="app.home.list({ id: item.ID })"
                   layout="row"
                   layout-fill
@@ -144,14 +128,13 @@
             </md-list-item>
             <md-list-item flex="33">
               <div layout-fill>
-                <md-button class="md-grid-item-content md-no-style md-primary md-raised"
-                  ng-click="$list.createList()"
+                <md-button class="md-grid-item-content md-no-style md-primary"
+                  ng-click="$list.createNewList($event)"
                   layout="row"
-                  layout-fill
-                  md-whiteframe="1dp">
+                  layout-fill>
                   <div class="grid-item-icon">
                     <md-icon class="material-icons">
-                      create
+                      create_new_folder
                     </md-icon>
                   </div>
                   <div class="grid-item-label"
@@ -190,10 +173,6 @@
                       type="text"
                       placeholder="New Task Summary">
                   </md-input-container>
-                  <!-- <md-input-container class="flex">
-                    <label>Enter new task summary</label>
-                    <input ng-model="$list.newItemSummary">
-                  </md-input-container> -->
                   <md-button class="md-icon-button md-primary"
                     ng-click="$list.createNewListItem()"
                     type="submit">
@@ -223,9 +202,6 @@
                 ng-repeat="item in $list.items"
                 ng-mouseenter="item._hover = true"
                 ng-mouseleave="item._hover = false">
-                <!-- <div class="inset">
-                  <md-checkbox style="margin: 0px;" ng-model="item.Completed">
-                </div> -->
                 <div class="inset">
                   <md-icon class="material-icons">
 
@@ -266,45 +242,12 @@
                     </md-menu-content>
                   </md-menu>
                 </div>
-                <!-- <md-button class="md-icon-button"
-                  style="position: absolute;top:8px;right:0px;">
-                  <md-icon class="material-icons manage-item">
-                    more_vert
-                  </md-icon>
-                </md-button> -->
               </md-list-item>
             </md-list>
           </div>
         </md-content>
-        <!-- <ul class="md-body-1"
-          style="padding: 0; margin: 0;">
-          <li class=""
-            style="padding: 8px 8px 8px 16px;"
-            ng-repeat="item in $list.items">
-            <md-icon class="material-icons"
-              style="margin-right: 8px">
-              checkbox
-            </md-icon>
-            <span>{{ item.Summary }}</span>
-          </li>
-        </ul> -->
       </div>
     </div>
   </div>
 
 </div>
-
-<!--<div class="md-padding" flex layout-sm="column">
-    <md-card class="text-center">
-        <md-card-content>
-            <h1>{{ $home.title }}</h1>
-            <h3>{{ $home.version }}</h3>
-            <p>This is a template for a simple home screen website. Use it as a starting point to create something more unique.</p>
-            <code>app/modules/home/home.html</code>
-            <br>
-            <p><a href="http://www.github.com/newaeonweb/generator-angm" class="btn btn-primary" role="button">Learn more »</a></p>
-            <md-divider class="margin-top-20"></md-divider>
-            <h1 class="margin-top-50">Features</h1>
-        </md-card-content>
-    </md-card>
-</div>-->
