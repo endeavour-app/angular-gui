@@ -9,7 +9,7 @@
    * Controller of the app
    */
   angular
-    .module('ang-modular')
+    .module('endeavour-app')
     .controller('SidenavCtrl', SidenavCtrl)
     .controller('SettingsCtrl', SettingsCtrl);
 

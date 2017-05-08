@@ -10,7 +10,7 @@
    */
 
   angular
-    .module('ang-modular')
+    .module('login')
     .controller('LoginCtrl', Home);
 
   Home.$inject = ['loginService'];

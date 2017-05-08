@@ -1,8 +1,12 @@
 {
-  "name": "ang-modular",
-  "description": "Modular AngularJS with Angm-generator",
-  "version": "0.0.1",
-  "author": "Eviratec",
+  "name": "angular-gui",
+  "description": "Endeavour App Angular.js GUI",
+  "version": "1.0.0-alpha",
+  "author": "Callan Peter Milne <callan.milne@eviratec.com.au>",
+  "repository": {
+    "url": "endeavour-app/angular-gui",
+    "type": "git"
+  },
   "engines": {
     "node": "7.8.x",
     "npm": "4.2.x"

@@ -10,7 +10,7 @@
    */
 
   angular
-    .module('ang-modular')
+    .module('endeavour-app')
     .factory('MenuService', Menu);
 
   // Inject your dependencies as .$inject = ['$http', '$otherDependency'];

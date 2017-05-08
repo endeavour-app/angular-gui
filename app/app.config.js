@@ -11,7 +11,7 @@
 
 
   angular
-    .module('ang-modular')
+    .module('endeavour-app')
     .config(configureThemes)
     .config(configure)
     .run(runBlock);
