@@ -34,7 +34,7 @@
       ng-click="$list.createNewList()">
       <md-icon class="material-icons"
         style="color: rgba(255,255,255,0.7);">
-        create
+        create_new_folder
       </md-icon>
       New Sub-Folder
     </md-button>
@@ -102,7 +102,75 @@
           md-whiteframe="1dp"
           flex>
           <span class="md-display-1">{{ $list.model.Title }}</span>
-          Meow
+
+          <md-list class="folder-grid"
+            layout="row"
+            layout-align="start start"
+            layout-wrap
+            flex>
+            <md-list-item ng-repeat="item in $list.lists"
+              flex="33">
+              <div layout-fill>
+                <md-button class="md-grid-item-content md-no-style"
+                  ui-sref="app.home.list({ id: item.ID })"
+                  layout="row"
+                  layout-fill
+                  md-whiteframe="1dp">
+                  <div class="grid-item-icon">
+                    <md-icon class="material-icons">
+                      folder
+                    </md-icon>
+                  </div>
+                  <div class="grid-item-label"
+                    flex>
+                    <div class="md-grid-text"
+                      layout="column"
+                      layout-align="center start"
+                      layout-fill>
+                      <div class="grid-item-title">
+                        <div class="md-body-1">
+                          {{ item.Title }}
+                        </div>
+                      </div>
+                      <div class="grid-item-info">
+                        <div class="md-caption">
+                          Created {{ item.Created.date.substr(0,10) }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </md-button>
+              </div>
+            </md-list-item>
+            <md-list-item flex="33">
+              <div layout-fill>
+                <md-button class="md-grid-item-content md-no-style md-primary md-raised"
+                  ng-click="$list.createList()"
+                  layout="row"
+                  layout-fill
+                  md-whiteframe="1dp">
+                  <div class="grid-item-icon">
+                    <md-icon class="material-icons">
+                      create
+                    </md-icon>
+                  </div>
+                  <div class="grid-item-label"
+                    flex>
+                    <div class="md-grid-text"
+                      layout="column"
+                      layout-align="center start"
+                      layout-fill>
+                      <div class="grid-item-title">
+                        <div class="md-body-1">
+                          Create New Folder
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </md-button>
+              </div>
+            </md-list-item>
+          </md-list>
         </div>
         <md-content flex="40">
           <div class="layout-column"
@@ -152,7 +220,9 @@
               </md-list-item>
               <md-list-item
                 style="border-bottom: 1px solid rgba(0,0,0,0.12);"
-                ng-repeat="item in $list.items">
+                ng-repeat="item in $list.items"
+                ng-mouseenter="item._hover = true"
+                ng-mouseleave="item._hover = false">
                 <!-- <div class="inset">
                   <md-checkbox style="margin: 0px;" ng-model="item.Completed">
                 </div> -->
@@ -166,6 +236,36 @@
                   style="color: rgba(0,0,0,0.38);">
                   {{ item.Created.date.substr(0,10) }}
                 </span>
+                <div style="width: 48px;">
+                  <md-menu ng-if="item._hover===true">
+                    <md-button class="md-icon-button"
+                      aria-label="Open Settings"
+                      ng-click="layout.openMenu($mdOpenMenu, $event)">
+                      <md-icon> more_vert </md-icon>
+                    </md-button>
+                    <md-menu-content width="4">
+                      <md-menu-item>
+                        <md-button>
+                          <md-icon>edit</md-icon>
+                          Edit Item
+                        </md-button>
+                      </md-menu-item>
+                      <md-menu-item>
+                        <md-button>
+                          <md-icon>file_upload</md-icon>
+                          Upload Attachment
+                        </md-button>
+                      </md-menu-item>
+                      <md-menu-divider></md-menu-divider>
+                      <md-menu-item>
+                        <md-button>
+                          <md-icon>delete</md-icon>
+                          Delete Item
+                        </md-button>
+                      </md-menu-item>
+                    </md-menu-content>
+                  </md-menu>
+                </div>
                 <!-- <md-button class="md-icon-button"
                   style="position: absolute;top:8px;right:0px;">
                   <md-icon class="material-icons manage-item">
