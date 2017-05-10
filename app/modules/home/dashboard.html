@@ -45,18 +45,12 @@
                     layout-align="center start"
                     layout-fill>
                     <div class="grid-item-title">
-                      <div class="md-body-1"
-                        ng-if="!$home.renaming[item.ID]"
-                        ng-click="$home.toggleRenaming($event, item)">
+                      <div class="md-body-2">
                         {{ item.Title }}
-                      </div>
-                      <div ng-if="$home.renaming[item.ID]">
-                        <input class="md-body-1"
-                          ng-model="item.Title">
                       </div>
                     </div>
                     <div class="grid-item-info">
-                      <div class="md-caption">
+                      <div class="md-caption" style="color: rgba(0,0,0,0.38);">
                         Created {{ item.Created.date.substr(0,10) }}
                       </div>
                     </div>
@@ -100,18 +94,3 @@
   </div>
 
 </div>
-
-<!--<div class="md-padding" flex layout-sm="column">
-    <md-card class="text-center">
-        <md-card-content>
-            <h1>{{ $home.title }}</h1>
-            <h3>{{ $home.version }}</h3>
-            <p>This is a template for a simple home screen website. Use it as a starting point to create something more unique.</p>
-            <code>app/modules/home/home.html</code>
-            <br>
-            <p><a href="http://www.github.com/newaeonweb/generator-angm" class="btn btn-primary" role="button">Learn more »</a></p>
-            <md-divider class="margin-top-20"></md-divider>
-            <h1 class="margin-top-50">Features</h1>
-        </md-card-content>
-    </md-card>
-</div>-->

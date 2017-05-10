@@ -33,6 +33,9 @@ const BANNER = `/**
  * THIS SOFTWARE.
  */\n\n`;
 
+const util = require('util');
+const modRewrite = require('connect-modrewrite');
+
 module.exports = function (grunt) {
   "use strict";
 
@@ -118,7 +121,19 @@ module.exports = function (grunt) {
           hostname: 'localhost',
           debug: true,
           livereload: true,
-          open: true
+          open: true,
+          middleware: function (connect, options, middlewares) {
+
+            let noRewriteExts = ['html','jpg','js','svg','css','png','eot','ttf','woff','woff2','ico','txt'];
+            let noRewriteRegExp = util.format('!\\.%s$', noRewriteExts.join('|\\.'));
+
+            middlewares.unshift(modRewrite([
+              util.format('%s /index.html [L]', noRewriteRegExp),
+            ]));
+
+            return middlewares;
+
+          },
         }
       }
     },

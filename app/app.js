@@ -23,6 +23,7 @@
     'backend',
     'home',
     'anon',
+    'signup',
     'login',
   ]);
 

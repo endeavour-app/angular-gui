@@ -10,10 +10,10 @@
    */
 
   angular
-    .module('login')
-    .controller('LoginCtrl', Home);
+    .module('signup')
+    .controller('SignupCtrl', Signup);
 
-  Home.$inject = ['loginService','$state'];
+  Signup.$inject = ['signupService'];
 
   /*
    * recommend
@@ -21,30 +21,28 @@
    * and bindable members up top.
    */
 
-  function Home(loginService, $state) {
+  function Signup(signupService) {
     /*jshint validthis: true */
-    var $login = this;
-    $login.title = "Hello, ang-modular!";
-    $login.version = "1.0.0";
+    var $signup = this;
 
-    $login.credentials = {
-      username: 'a.tester@localhost',
-      password: '$MYpassword!',
+    $signup.formData = {
+      EmailAddress: '',
+      FirstName: '',
+      LastName: '',
+      TimeZone: 'utc',
     };
 
-    $login.submit = function () {
+    $signup.submit = function () {
 
-      let creds = $login.credentials;
-      let username = creds.username;
-      let password = creds.password;
+      let formData = $signup.formData;
 
-      loginService.attemptLogin(username, password)
+      signupService.trySignup(formData)
         .then(function (res) {
           console.log(res);
 
           loginService.fetchSession()
             .then(function (res) {
-              $state.go('app.home.dashboard');
+              window.location = '/#!/signup/success';
               console.log(res);
             })
             .catch(function (err) {

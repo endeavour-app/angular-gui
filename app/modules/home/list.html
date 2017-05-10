@@ -1,9 +1,9 @@
 <div style="padding: 0 24px 16px;background: #455A64;color: rgba(255,255,255,0.7);height: 128px;min-height: 128px;"
   layout="row"
   layout-align="end end">
-  <div style="padding-left: 32px;padding-bottom: 8px;"
-    ng-click="$list.renameList(true)">
+  <div style="padding-left: 0px;padding-bottom: 8px;">
     <div class=""
+      ng-click="$list.renameList(true)"
       ng-if="!$list.renaming">
       <span class="md-display-1">{{ $list.model.Title }}</span>
     </div>
@@ -30,14 +30,14 @@
       </md-icon>
       Delete Folder
     </md-button>
-    <md-button class=""
+    <!-- <md-button class=""
       ng-click="$list.createNewList($event)">
       <md-icon class="material-icons"
         style="color: rgba(255,255,255,0.7);">
         create_new_folder
       </md-icon>
       New Sub-Folder
-    </md-button>
+    </md-button> -->
   </div>
 </div>
 <div class="md-padding"
@@ -55,102 +55,170 @@
       <div layout="row"
         layout-fill>
         <div class=""
-          style="background: #fff;padding: 0;border-radius: 4px 0 0 4px;z-index:1;"
-          md-whiteframe="1dp"
+          layout="column"
           flex>
-          <md-list class="folder-grid"
-            layout="row"
-            layout-align="start start"
-            layout-wrap
-            flex>
-            <md-list-item ng-if="$list.model.ParentID"
-              flex="33">
-              <div layout-fill>
-                <md-button class="md-grid-item-content md-no-style md-primary md-raised"
-                  ui-sref="app.home.list({ id: $list.model.ParentID })"
-                  layout="row"
-                  layout-fill
-                  md-whiteframe="1dp">
-                  <div class="grid-item-icon">
-                    <md-icon class="material-icons">
-                      folder
-                    </md-icon>
-                  </div>
-                  <div class="grid-item-label"
+          <div class=""
+            style="background: #fff;padding: 0;border-radius: 4px 0 0 4px;z-index:1;"
+            md-whiteframe="1dp">
+            <div layout="row">
+              <div>
+                <div layout="column">
+                  <md-list class="folder-grid"
+                    layout="row"
+                    layout-align="start start"
+                    layout-wrap
                     flex>
-                    <div class="md-grid-text"
-                      layout="column"
-                      layout-align="center start"
-                      layout-fill>
-                      <div class="grid-item-title">
-                        <div class="md-body-1">
-                          ..
-                        </div>
+                    <md-list-item ng-if="$list.model.ParentID"
+                      flex="33">
+                      <div layout-fill>
+                        <md-button class="md-grid-item-content md-no-style md-primary md-raised"
+                          ui-sref="app.home.list({ id: $list.model.ParentID })"
+                          layout="row"
+                          layout-fill
+                          md-whiteframe="1dp">
+                          <div class="grid-item-icon">
+                            <md-icon class="material-icons">
+                              folder
+                            </md-icon>
+                          </div>
+                          <div class="grid-item-label"
+                            flex>
+                            <div class="md-grid-text"
+                              layout="column"
+                              layout-align="center start"
+                              layout-fill>
+                              <div class="grid-item-title">
+                                <div class="md-body-1">
+                                  ..
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </md-button>
                       </div>
-                    </div>
-                  </div>
-                </md-button>
+                    </md-list-item>
+                    <md-list-item ng-repeat="item in $list.lists"
+                      flex="33">
+                      <div layout-fill>
+                        <md-button class="md-grid-item-content md-no-style md-primary md-raised"
+                          ui-sref="app.home.list({ id: item.ID })"
+                          layout="row"
+                          layout-fill
+                          md-whiteframe="1dp">
+                          <div class="grid-item-icon">
+                            <md-icon class="material-icons">
+                              folder
+                            </md-icon>
+                          </div>
+                          <div class="grid-item-label"
+                            flex>
+                            <div class="md-grid-text"
+                              layout="column"
+                              layout-align="center start"
+                              layout-fill>
+                              <div class="grid-item-title">
+                                <div class="md-body-1">
+                                  {{ item.Title }}
+                                </div>
+                              </div>
+                              <div class="grid-item-info">
+                                <div class="md-caption">
+                                  Created {{ item.Created.date.substr(0,10) }}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </md-button>
+                      </div>
+                    </md-list-item>
+                    <md-list-item flex="33">
+                      <div layout-fill>
+                        <md-button class="md-grid-item-content md-no-style md-primary"
+                          ng-click="$list.createNewList($event)"
+                          layout="row"
+                          layout-fill>
+                          <div class="grid-item-icon">
+                            <md-icon class="material-icons">
+                              create_new_folder
+                            </md-icon>
+                          </div>
+                          <div class="grid-item-label"
+                            flex>
+                            <div class="md-grid-text"
+                              layout="column"
+                              layout-align="center start"
+                              layout-fill>
+                              <div class="grid-item-title">
+                                <div class="md-body-1">
+                                  Create New Folder
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </md-button>
+                      </div>
+                    </md-list-item>
+                  </md-list>
+                  <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
+                    Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales
+                    pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies
+                    mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum
+                    enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida.
+                    Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a
+                    facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac
+                    lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim
+                    venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit.
+                    Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec
+                    orci posuere, nec luctus mauris semper.
+                  </p>
+                </div>
               </div>
-            </md-list-item>
-            <md-list-item ng-repeat="item in $list.lists"
-              flex="33">
-              <div layout-fill>
-                <md-button class="md-grid-item-content md-no-style md-primary md-raised"
-                  ui-sref="app.home.list({ id: item.ID })"
-                  layout="row"
-                  layout-fill
-                  md-whiteframe="1dp">
-                  <div class="grid-item-icon">
-                    <md-icon class="material-icons">
-                      folder
-                    </md-icon>
-                  </div>
-                  <div class="grid-item-label"
-                    flex>
-                    <div class="md-grid-text"
-                      layout="column"
-                      layout-align="center start"
-                      layout-fill>
-                      <div class="grid-item-title">
-                        <div class="md-body-1">
-                          {{ item.Title }}
-                        </div>
-                      </div>
-                      <div class="grid-item-info">
-                        <div class="md-caption">
-                          Created {{ item.Created.date.substr(0,10) }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </md-button>
+            </div>
+          </div>
+          <md-list flex>
+            <md-list-item
+              style="border-bottom: 1px solid rgba(0,0,0,0.12);"
+              ng-repeat="item in $list.items">
+              <div class="inset">
+                <md-icon class="material-icons">
+
+                </md-icon>
               </div>
-            </md-list-item>
-            <md-list-item flex="33">
-              <div layout-fill>
-                <md-button class="md-grid-item-content md-no-style md-primary"
-                  ng-click="$list.createNewList($event)"
-                  layout="row"
-                  layout-fill>
-                  <div class="grid-item-icon">
-                    <md-icon class="material-icons">
-                      create_new_folder
-                    </md-icon>
-                  </div>
-                  <div class="grid-item-label"
-                    flex>
-                    <div class="md-grid-text"
-                      layout="column"
-                      layout-align="center start"
-                      layout-fill>
-                      <div class="grid-item-title">
-                        <div class="md-body-1">
-                          Create New Folder
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </md-button>
+              <p>{{ item.Summary }}</p>
+              <span class="md-caption"
+                style="color: rgba(0,0,0,0.38);">
+                {{ item.Created.date.substr(0,10) }}
+              </span>
+              <div style="width: 48px;">
+                <md-menu>
+                  <md-button class="md-icon-button"
+                    aria-label="Open Settings"
+                    ng-click="layout.openMenu($mdOpenMenu, $event)">
+                    <md-icon> more_vert </md-icon>
+                  </md-button>
+                  <md-menu-content width="4">
+                    <md-menu-item>
+                      <md-button>
+                        <md-icon>edit</md-icon>
+                        Edit Item
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-item>
+                      <md-button>
+                        <md-icon>file_upload</md-icon>
+                        Upload Attachment
+                      </md-button>
+                    </md-menu-item>
+                    <md-menu-divider></md-menu-divider>
+                    <md-menu-item>
+                      <md-button>
+                        <md-icon>delete</md-icon>
+                        Delete Item
+                      </md-button>
+                    </md-menu-item>
+                  </md-menu-content>
+                </md-menu>
               </div>
             </md-list-item>
           </md-list>
@@ -182,66 +250,16 @@
               </div>
             </div>
             <md-list>
-              <md-list-item ui-sref-active="active"
-                style="border-bottom: 1px solid rgba(0,0,0,0.12);"
-                ui-sref="app.home.list({ id: item.ID })"
-                ng-repeat="item in $list.lists">
+              <md-list-item ng-repeat="item in $list.lists"
+                style="color:rgb(33,150,243);font-weight:500;"
+                flex="33">
                 <div class="inset">
-                  <md-icon class="material-icons">
-                    folder
+                  <md-icon class="material-icons"
+                    style="color:rgb(33,150,243);">
+                    expand_more
                   </md-icon>
                 </div>
                 <p>{{ item.Title }}</p>
-                <span class="md-caption"
-                  style="color: rgba(0,0,0,0.38);">
-                  {{ item.Created.date.substr(0,10) }}
-                </span>
-              </md-list-item>
-              <md-list-item
-                style="border-bottom: 1px solid rgba(0,0,0,0.12);"
-                ng-repeat="item in $list.items"
-                ng-mouseenter="item._hover = true"
-                ng-mouseleave="item._hover = false">
-                <div class="inset">
-                  <md-icon class="material-icons">
-
-                  </md-icon>
-                </div>
-                <p>{{ item.Summary }}</p>
-                <span class="md-caption"
-                  style="color: rgba(0,0,0,0.38);">
-                  {{ item.Created.date.substr(0,10) }}
-                </span>
-                <div style="width: 48px;">
-                  <md-menu ng-if="item._hover===true">
-                    <md-button class="md-icon-button"
-                      aria-label="Open Settings"
-                      ng-click="layout.openMenu($mdOpenMenu, $event)">
-                      <md-icon> more_vert </md-icon>
-                    </md-button>
-                    <md-menu-content width="4">
-                      <md-menu-item>
-                        <md-button>
-                          <md-icon>edit</md-icon>
-                          Edit Item
-                        </md-button>
-                      </md-menu-item>
-                      <md-menu-item>
-                        <md-button>
-                          <md-icon>file_upload</md-icon>
-                          Upload Attachment
-                        </md-button>
-                      </md-menu-item>
-                      <md-menu-divider></md-menu-divider>
-                      <md-menu-item>
-                        <md-button>
-                          <md-icon>delete</md-icon>
-                          Delete Item
-                        </md-button>
-                      </md-menu-item>
-                    </md-menu-content>
-                  </md-menu>
-                </div>
               </md-list-item>
             </md-list>
           </div>

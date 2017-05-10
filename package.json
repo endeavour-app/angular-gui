@@ -23,6 +23,7 @@
     "glob": "4.5.3"
   },
   "devDependencies": {
+    "connect-modrewrite": "^0.10.1",
     "grunt": "1.0.1",
     "grunt-angular-templates": "1.1.0",
     "grunt-concurrent": "2.3.1",

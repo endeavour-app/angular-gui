@@ -44,10 +44,13 @@
 
       <md-divider></md-divider>
 
-      <md-subheader>Folders</md-subheader>
+      <md-subheader ng-click="$home.showSidenavFolders=!$home.showSidenavFolders">
+        Folders
+      </md-subheader>
       <md-list-item ui-sref-active="active"
         ui-sref="app.home.list({ id: item.ID })"
-        ng-repeat="item in $home.lists">
+        ng-repeat="item in $home.lists"
+        ng-if="$home.showSidenavFolders">
         <div class="inset">
           <md-icon class="material-icons">
             folder
@@ -56,7 +59,8 @@
         <p>{{ item.Title }}</p>
       </md-list-item>
       <md-list-item ng-repeat="item in vm.admin"
-        ng-click="$home.createNewList()">
+        ng-click="$home.createNewList()"
+        ng-if="$home.showSidenavFolders">
         <div class="inset">
           <md-icon class="material-icons">
             create

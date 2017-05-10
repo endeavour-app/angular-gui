@@ -45,7 +45,7 @@
         return;
       }
 
-      if ($list.renaming) {
+      if (!$list.renaming) {
         $list.newTitle = $list.model.Title;
       }
 
@@ -59,12 +59,17 @@
         return $list.renameList();
       }
 
-      $list.model.Title = $list.newTitle;
+      let newTitle = $list.newTitle;
+      $list.newTitle = '';
 
       listService
-        .saveListTitle($list.model.ID, $list.model.Title)
+        .saveListTitle($list.model.ID, newTitle)
         .then(function (res) {
-          Object.assign($list.model, res.data);
+          $timeout(function () {
+            Object.assign($list.model, res.data);
+            $list.model.Title = res.data.Title;
+            $list.renaming = false;
+          });
         })
         .catch(function (err) {
           console.log(err);
