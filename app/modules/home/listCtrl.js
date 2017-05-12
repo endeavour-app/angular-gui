@@ -39,6 +39,9 @@
     $list.newTitle = '';
     $list.renaming = false;
 
+    $list.editingSubListTitle = null;
+    $list.newSubListTitle = null;
+
     $list.renameList = function (toggle) {
 
       if (toggle === true && $list.renaming) {
@@ -50,6 +53,36 @@
       }
 
       $list.renaming = !$list.renaming;
+
+    };
+
+    $list.editSubListTitle = function ($event, subList) {
+      console.log(subList);
+      $list.editingSubListTitle = subList.ID;
+      $list.newSubListTitle = subList.Title;
+    };
+
+    $list.saveNewSubListTitle = function (subList) {
+
+      if (!$list.newSubListTitle) {
+        return $list.editingSubListTitle = null;
+      }
+
+      let newTitle = $list.newSubListTitle;
+      $list.newSubListTitle = '';
+
+      listService
+        .saveListTitle(subList.ID, newTitle)
+        .then(function (res) {
+          $timeout(function () {
+            Object.assign(subList, res.data);
+            subList.Title = res.data.Title;
+            $list.editingSubListTitle = null;
+          });
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
 
     };
 

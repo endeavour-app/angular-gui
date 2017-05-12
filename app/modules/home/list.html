@@ -9,13 +9,17 @@
     </div>
     <div class=""
       ng-if="$list.renaming">
-      <form>
+      <form layout="row">
         <input name="newTitle"
           ng-model="$list.newTitle">
         <md-button type="submit"
-          class="md-icon-button"
+          class="md-icon-button md-primary"
           ng-click="$list.saveNewTitle()">
           <md-icon class="material-icons">save</md-icon>
+        </md-button>
+        <md-button class="md-icon-button"
+          ng-click="$list.renameList()">
+          <md-icon class="material-icons">cancel</md-icon>
         </md-button>
       </form>
     </div>
@@ -159,7 +163,7 @@
                       </div>
                     </md-list-item>
                   </md-list>
-                  <p>
+                  <p class="md-body-1" style="color: rgba(0,0,0,0.57);margin: 0px 24px 24px;">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue.
                     Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales
                     pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies
@@ -259,7 +263,26 @@
                     expand_more
                   </md-icon>
                 </div>
-                <p>{{ item.Title }}</p>
+                <div class=""
+                  ng-if="$list.editingSubListTitle === item.ID">
+                  <form layout="row">
+                    <input name="newTitle"
+                      ng-model="$list.newSubListTitle">
+                    <md-button type="submit"
+                      class="md-icon-button md-primary"
+                      ng-click="$list.saveNewSubListTitle(item)">
+                      <md-icon class="material-icons">save</md-icon>
+                    </md-button>
+                    <md-button class="md-icon-button"
+                      ng-click="$list.editingSubListTitle = null">
+                      <md-icon class="material-icons">cancel</md-icon>
+                    </md-button>
+                  </form>
+                </div>
+                <p ng-click="$list.editSubListTitle($event, item)"
+                  ng-if="$list.editingSubListTitle !== item.ID">
+                  {{ item.Title }}
+                </p>
               </md-list-item>
             </md-list>
           </div>
