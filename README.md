@@ -1,5 +1,8 @@
 # Endeavour Angular.js GUI
 
+[![Dependency Status](https://david-dm.org/eviratec/angular-gui/status.svg)](https://david-dm.org/eviratec/angular-gui)
+[![devDependency Status](https://david-dm.org/eviratec/angular-gui/dev-status.svg)](https://david-dm.org/eviratec/angular-gui#info=devDependencies)
+
 ## Development requirements
 
 - [Node.js](https://github.com/nodejs/node) >=v7.8.0
