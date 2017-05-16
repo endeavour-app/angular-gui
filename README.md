@@ -1,7 +1,7 @@
 # Endeavour Angular.js GUI
 
-[![Dependency Status](https://david-dm.org/eviratec/angular-gui/status.svg)](https://david-dm.org/eviratec/angular-gui)
-[![devDependency Status](https://david-dm.org/eviratec/angular-gui/dev-status.svg)](https://david-dm.org/eviratec/angular-gui#info=devDependencies)
+[![Dependency Status](https://david-dm.org/endeavour-app/angular-gui/status.svg)](https://david-dm.org/endeavour-app/angular-gui)
+[![devDependency Status](https://david-dm.org/endeavour-app/angular-gui/dev-status.svg)](https://david-dm.org/endeavour-app/angular-gui#info=devDependencies)
 
 ## Development requirements
 
